@@ -3,10 +3,10 @@ import { notFound } from "next/navigation"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
 import type { Metadata, Viewport } from "next"
-import { Outfit } from "next/font/google"
+import { Inter } from "next/font/google"
 import Providers from "@/components/providers"
 
-const outfit = Outfit({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] })
 
 const locales = ["en", "zh"]
 
@@ -116,7 +116,7 @@ export default async function LocaleLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <meta name="theme-color" content="#f97316" />
+        <meta name="theme-color" content="#6366f1" />
         <meta name="color-scheme" content="light dark" />
         <script
           type="application/ld+json"
@@ -145,7 +145,7 @@ export default async function LocaleLayout({
           }}
         />
       </head>
-      <body className={outfit.className}>
+      <body className={inter.className}>
         <Providers>
           <NextIntlClientProvider messages={messages}>
             {children}

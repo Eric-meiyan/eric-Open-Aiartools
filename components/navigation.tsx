@@ -104,7 +104,7 @@ export default function Navigation({ locale }: NavigationProps) {
                 height={32}
                 className="w-8 h-8"
               />
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                 Photo Editor Art
               </h1>
             </div>
@@ -115,31 +115,31 @@ export default function Navigation({ locale }: NavigationProps) {
             <div className="ml-10 flex items-baseline space-x-4">
               <button
                 onClick={scrollToTop}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
               >
                 {t("home")}
               </button>
               <button
                 onClick={() => scrollToSection("features")}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
               >
                 {t("features")}
               </button>
               <button
                 onClick={() => scrollToSection("demo")}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
               >
                 {t("demo")}
               </button>
               <button
                 onClick={() => scrollToSection("pricing")}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
               >
                 {t("pricing")}
               </button>
               <button
                 onClick={() => scrollToSection("blog")}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
               >
                 {t("blog")}
               </button>
