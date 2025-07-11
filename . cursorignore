@@ -1,0 +1,2 @@
+# 但是不忽略 .env.example
+!.env.*
