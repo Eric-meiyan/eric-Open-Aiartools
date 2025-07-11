@@ -62,7 +62,7 @@ interface BlogPostProps {
   params: Promise<{ locale: string }>
 }
 
-export default async function IntroducingPhoto Editor Art({ params }: BlogPostProps) {
+export default async function IntroducingPhotoEditorArt({ params }: BlogPostProps) {
   const { locale } = await params
   const t = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
@@ -76,7 +76,7 @@ export default async function IntroducingPhoto Editor Art({ params }: BlogPostPr
         introduction: "Introduction",
         introText:
           "Today, we're excited to introduce Photo Editor Art, a revolutionary AI-powered image transformation platform that allows you to edit and transform your images using simple text prompts. Whether you're a professional designer, a social media manager, or just someone who loves creating beautiful images, Photo Editor Art makes image editing accessible, fun, and incredibly powerful.",
-        whatIsPhoto Editor Art: "What is Photo Editor Art?",
+        whatIsPhotoEditorArt: "What is Photo Editor Art?",
         whatIsText:
           "Photo Editor Art is an AI-powered image editing platform that understands natural language. Instead of learning complex editing software or manipulating dozens of sliders and controls, you simply describe what you want to change about your image, and our AI does the rest. Want to turn a daytime photo into a night scene? Add a cat to your living room photo? Transform your portrait into an anime character? With Photo Editor Art, it's as simple as typing your request.",
         keyFeatures: "Key Features",
@@ -139,7 +139,7 @@ export default async function IntroducingPhoto Editor Art({ params }: BlogPostPr
         introduction: "介绍",
         introText:
           "今天，我们很高兴地介绍Photo Editor Art，这是一个革命性的AI驱动图像转换平台，允许您使用简单的文本提示编辑和转换图像。无论您是专业设计师、社交媒体经理，还是只是喜欢创建美丽图像的人，Photo Editor Art都使图像编辑变得易于使用、有趣且功能强大。",
-        whatIsPhoto Editor Art: "什么是Photo Editor Art？",
+        whatIsPhotoEditorArt: "什么是Photo Editor Art？",
         whatIsText:
           "Photo Editor Art是一个能够理解自然语言的AI驱动图像编辑平台。您无需学习复杂的编辑软件或操作数十个滑块和控件，只需描述您想要对图像进行的更改，我们的AI就会完成其余的工作。想要将白天的照片变成夜景？在您的客厅照片中添加一只猫？将您的肖像转变为动漫角色？使用Photo Editor Art，只需输入您的请求即可。",
         keyFeatures: "主要功能",
@@ -252,7 +252,7 @@ export default async function IntroducingPhoto Editor Art({ params }: BlogPostPr
                 </section>
 
                 <section>
-                  <h2 className="text-2xl font-semibold mb-4">{t("whatIsPhoto Editor Art")}</h2>
+                  <h2 className="text-2xl font-semibold mb-4">{t("whatIsPhotoEditorArt")}</h2>
                   <p className="text-muted-foreground leading-relaxed">{t("whatIsText")}</p>
                 </section>
 
@@ -282,17 +282,32 @@ export default async function IntroducingPhoto Editor Art({ params }: BlogPostPr
                   <h2 className="text-2xl font-semibold mb-4">{t("howItWorks")}</h2>
                   <p className="text-muted-foreground mb-4">{t("howItWorksText")}</p>
                   <div className="space-y-4">
-                    <div className="bg-muted/30 p-4 rounded-lg">
-                      <h3 className="font-medium mb-2">{t("step1")}</h3>
-                      <p className="text-muted-foreground">{t("step1Text")}</p>
+                    <div className="flex items-start space-x-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-medium text-sm">
+                        1
+                      </div>
+                      <div>
+                        <h3 className="font-medium">{t("step1")}</h3>
+                        <p className="text-muted-foreground">{t("step1Text")}</p>
+                      </div>
                     </div>
-                    <div className="bg-muted/30 p-4 rounded-lg">
-                      <h3 className="font-medium mb-2">{t("step2")}</h3>
-                      <p className="text-muted-foreground">{t("step2Text")}</p>
+                    <div className="flex items-start space-x-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-medium text-sm">
+                        2
+                      </div>
+                      <div>
+                        <h3 className="font-medium">{t("step2")}</h3>
+                        <p className="text-muted-foreground">{t("step2Text")}</p>
+                      </div>
                     </div>
-                    <div className="bg-muted/30 p-4 rounded-lg">
-                      <h3 className="font-medium mb-2">{t("step3")}</h3>
-                      <p className="text-muted-foreground">{t("step3Text")}</p>
+                    <div className="flex items-start space-x-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-medium text-sm">
+                        3
+                      </div>
+                      <div>
+                        <h3 className="font-medium">{t("step3")}</h3>
+                        <p className="text-muted-foreground">{t("step3Text")}</p>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -328,19 +343,19 @@ export default async function IntroducingPhoto Editor Art({ params }: BlogPostPr
                   <p className="text-muted-foreground mb-4">{t("useCasesText")}</p>
                   <div className="space-y-4">
                     <div>
-                      <h3 className="font-medium">{t("useCase1")}</h3>
+                      <h3 className="font-medium text-lg">{t("useCase1")}</h3>
                       <p className="text-muted-foreground">{t("useCase1Text")}</p>
                     </div>
                     <div>
-                      <h3 className="font-medium">{t("useCase2")}</h3>
+                      <h3 className="font-medium text-lg">{t("useCase2")}</h3>
                       <p className="text-muted-foreground">{t("useCase2Text")}</p>
                     </div>
                     <div>
-                      <h3 className="font-medium">{t("useCase3")}</h3>
+                      <h3 className="font-medium text-lg">{t("useCase3")}</h3>
                       <p className="text-muted-foreground">{t("useCase3Text")}</p>
                     </div>
                     <div>
-                      <h3 className="font-medium">{t("useCase4")}</h3>
+                      <h3 className="font-medium text-lg">{t("useCase4")}</h3>
                       <p className="text-muted-foreground">{t("useCase4Text")}</p>
                     </div>
                   </div>
@@ -351,15 +366,15 @@ export default async function IntroducingPhoto Editor Art({ params }: BlogPostPr
                   <p className="text-muted-foreground mb-4">{t("gettingStartedText")}</p>
                   <div className="space-y-4">
                     <div>
-                      <h3 className="font-medium">{t("gettingStarted1")}</h3>
+                      <h3 className="font-medium text-lg">{t("gettingStarted1")}</h3>
                       <p className="text-muted-foreground">{t("gettingStarted1Text")}</p>
                     </div>
                     <div>
-                      <h3 className="font-medium">{t("gettingStarted2")}</h3>
+                      <h3 className="font-medium text-lg">{t("gettingStarted2")}</h3>
                       <p className="text-muted-foreground">{t("gettingStarted2Text")}</p>
                     </div>
                     <div>
-                      <h3 className="font-medium">{t("gettingStarted3")}</h3>
+                      <h3 className="font-medium text-lg">{t("gettingStarted3")}</h3>
                       <p className="text-muted-foreground">{t("gettingStarted3Text")}</p>
                     </div>
                   </div>
@@ -368,19 +383,15 @@ export default async function IntroducingPhoto Editor Art({ params }: BlogPostPr
                 <section>
                   <h2 className="text-2xl font-semibold mb-4">{t("conclusion")}</h2>
                   <p className="text-muted-foreground mb-4">{t("conclusionText")}</p>
-                  <p className="text-muted-foreground">{t("conclusionText2")}</p>
+                  <p className="text-muted-foreground mb-6">{t("conclusionText2")}</p>
+                  <div className="text-center">
+                    <Link href={`/${locale}`}>
+                      <Button size="lg">
+                        {t("tryItNow")}
+                      </Button>
+                    </Link>
+                  </div>
                 </section>
-
-                <div className="text-center my-10">
-                  <Link href={`/${locale}`}>
-                    <Button
-                      size="lg"
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
-                    >
-                      {t("tryItNow")}
-                    </Button>
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
