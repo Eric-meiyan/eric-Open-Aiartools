@@ -521,3 +521,55 @@ grep "photo editor" messages/en.json && echo "✅ 英文SEO已更新" || echo "�
 
 echo "=== 检查完成 ==="
 ```
+
+## 🗓️ 执行时间线 (28天)
+
+### ✅ P0: 核心品牌替换 (Day 1-3)
+**目标**: 完成基础品牌名称和域名替换
+
+#### ✅ Day 1 - 品牌核心替换 (已完成)
+- ✅ package.json项目名称更新
+- ✅ messages/en.json品牌替换(21处)
+- ✅ messages/zh.json品牌替换(21处)  
+- ✅ Hero区域从"images"改为"photos"
+- ✅ 创建验证脚本check-rebrand.sh
+- **提交**: fee995e - Day 1核心品牌替换完成
+
+#### ✅ Day 2 - 全面品牌替换 (已完成) 
+- ✅ 博客页面：4个文件(introducing-aiartools, how-to-edit-images, contact-us, page)
+- ✅ 法律文档：3个文件(privacy, terms, cookies)  
+- ✅ 布局文件：2个文件(app/[locale]/layout, app/layout)
+- ✅ 核心组件：4个文件(footer, navigation, seo, blog-section)
+- ✅ API路由：3个文件(邮件相关接口)
+- ✅ 配置文件：3个文件(email, sitemap, robots.txt, webmanifest)
+- ✅ 说明文档：2个文件(README, site.webmanifest)
+- **成果**: 21个文件，7个类别，24个备份，品牌替换100%完成
+- **提交**: 402ed72 - Day 2全面品牌替换完成
+
+#### 📋 Day 3 - 图片和视觉资源替换 (下一步)
+**状态**: 待执行
+**预计工作量**: 4-6小时
+
+**主要任务**:
+- [ ] Logo设计和替换
+  - [ ] 设计新的Photo Editor Art标识
+  - [ ] 替换favicon.ico
+  - [ ] 更新导航栏logo
+  - [ ] 更新footer logo
+- [ ] 博客图片更新  
+  - [ ] Transform Your Images → Transform Your Photos
+  - [ ] How to Edit Images → How to Edit Photos
+  - [ ] Get in Touch with Aiartools → Get in Touch with Photo Editor Art
+- [ ] OG图片和社交媒体图片
+  - [ ] 更新og-image.png
+  - [ ] 更新社交分享图片
+- [ ] 其他品牌相关图片
+  - [ ] 检查public/images/目录
+  - [ ] 更新任何包含旧品牌的图片
+
+**验证任务**:
+- [ ] 检查所有页面视觉一致性
+- [ ] 测试社交分享效果
+- [ ] 验证favicon显示正确
+
+**预期结果**: 完成视觉品牌统一，所有图片资源更新完成
