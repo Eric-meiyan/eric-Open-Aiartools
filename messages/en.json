@@ -155,6 +155,27 @@
       "privacyPolicy": "Privacy Policy",
       "termsOfService": "Terms of Service"
     },
+    "resetPassword": {
+      "pageTitle": "Set New Password - Photo Editor Art",
+      "title": "Set New Password",
+      "subtitle": "Please enter your new password",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter new password (at least 6 characters)",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Enter new password again",
+      "resetButton": "Reset Password",
+      "resetting": "Resetting...",
+      "successTitle": "Password Reset Successful!",
+      "successMessage": "Your password has been successfully reset",
+      "loginNow": "Login Now",
+      "backToLogin": "Back to Login",
+      "invalidToken": "Reset link is invalid or expired",
+      "tokenExpired": "Reset link has expired, please request a new one",
+      "requestNewReset": "Request New Reset",
+      "agreeToTerms": "By using our service, you agree to our",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service"
+    },
     "verifyEmail": {
       "pageTitle": "Verify Email - Photo Editor Art",
       "title": "Verify Your Email",

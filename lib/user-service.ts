@@ -165,21 +165,20 @@ export async function deleteVerificationToken(token: string): Promise<boolean> {
 }
 
 // 更新用户密码
-export async function updateUserPassword(email: string, newPassword: string): Promise<boolean> {
+export async function updateUserPassword(userId: string, hashedPassword: string): Promise<boolean> {
   try {
-    const hashedPassword = await hashPassword(newPassword);
     const [updatedUser] = await db
       .update(users)
       .set({ 
         password: hashedPassword,
         updatedAt: new Date() 
       })
-      .where(eq(users.email, email))
+      .where(eq(users.id, userId))
       .returning();
 
     return !!updatedUser;
   } catch (error) {
-    console.error('更新密码失败:', error);
+    console.error('更新用户密码失败:', error);
     return false;
   }
 } 

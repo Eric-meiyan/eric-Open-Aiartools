@@ -520,6 +520,27 @@
       "privacyPolicy": "隐私政策",
       "termsOfService": "用户协议"
     },
+    "resetPassword": {
+      "pageTitle": "设置新密码 - Photo Editor Art",
+      "title": "设置新密码",
+      "subtitle": "请输入您的新密码",
+      "newPassword": "新密码",
+      "newPasswordPlaceholder": "请输入新密码（至少6位）",
+      "confirmPassword": "确认密码",
+      "confirmPasswordPlaceholder": "请再次输入新密码",
+      "resetButton": "重置密码",
+      "resetting": "重置中...",
+      "successTitle": "密码重置成功！",
+      "successMessage": "您的密码已成功重置",
+      "loginNow": "立即登录",
+      "backToLogin": "返回登录",
+      "invalidToken": "重置链接无效或已过期",
+      "tokenExpired": "重置链接已过期，请重新申请",
+      "requestNewReset": "重新申请重置",
+      "agreeToTerms": "使用我们的服务即表示您同意我们的",
+      "privacyPolicy": "隐私政策",
+      "termsOfService": "用户协议"
+    },
     "verifyEmail": {
       "pageTitle": "验证邮箱 - Photo Editor Art",
       "title": "验证您的邮箱",
