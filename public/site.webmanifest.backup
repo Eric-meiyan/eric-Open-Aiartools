@@ -1,6 +1,6 @@
 {
-  "name": "Photo Editor Art - AI Image Editor",
-  "short_name": "Photo Editor Art",
+  "name": "Aiartools - AI Image Editor",
+  "short_name": "Aiartools",
   "description": "Transform your images with the power of AI. Simple, fast, and incredibly powerful.",
   "start_url": "/",
   "display": "standalone",

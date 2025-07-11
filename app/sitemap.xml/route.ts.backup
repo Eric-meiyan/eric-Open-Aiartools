@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 export async function GET() {
-  const baseUrl = 'https://photo-editor.art'
+  const baseUrl = 'https://aiartools.com'
   const languages = ['en', 'zh']
   
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

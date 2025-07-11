@@ -16,7 +16,7 @@ export default function SEO({
   description: customDescription,
   keywords: customKeywords,
   image = '/images/og-image.png',
-  url = 'https://photo-editor.art',
+  url = 'https://aiartools.com',
   type = 'website',
   locale = 'en'
 }: SEOProps) {
@@ -32,7 +32,7 @@ export default function SEO({
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      <meta name="author" content="Photo Editor Art Team" />
+      <meta name="author" content="Aiartools Team" />
       <meta name="robots" content="index, follow" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       
@@ -42,7 +42,7 @@ export default function SEO({
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <meta property="og:url" content={url} />
-      <meta property="og:site_name" content="Photo Editor Art" />
+      <meta property="og:site_name" content="Aiartools" />
       <meta property="og:locale" content={locale} />
       
       {/* Twitter Card meta 标签 */}
@@ -55,9 +55,9 @@ export default function SEO({
       
       {/* 语言相关 */}
       <meta httpEquiv="content-language" content={locale} />
-      <link rel="alternate" hrefLang="en" href="https://photo-editor.art" />
-      <link rel="alternate" hrefLang="zh" href="https://photo-editor.art/zh" />
-      <link rel="alternate" hrefLang="x-default" href="https://photo-editor.art" />
+      <link rel="alternate" hrefLang="en" href="https://aiartools.com" />
+      <link rel="alternate" hrefLang="zh" href="https://aiartools.com/zh" />
+      <link rel="alternate" hrefLang="x-default" href="https://aiartools.com" />
       
       {/* 额外的 meta 标签 */}
       <meta name="theme-color" content="#6366f1" />

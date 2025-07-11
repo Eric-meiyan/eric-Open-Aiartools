@@ -36,9 +36,9 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
-    authors: [{ name: 'Photo Editor Art Team' }],
-    creator: 'Photo Editor Art',
-    publisher: 'Photo Editor Art',
+    authors: [{ name: 'Aiartools Team' }],
+    creator: 'Aiartools',
+    publisher: 'Aiartools',
     robots: {
       index: true,
       follow: true,
@@ -54,10 +54,10 @@ export async function generateMetadata({
       type: 'website',
       locale: locale,
       alternateLocale: locale === 'en' ? 'zh' : 'en',
-      url: 'https://photo-editor.art',
+      url: 'https://aiartools.com',
       title: t('ogTitle'),
       description: t('ogDescription'),
-      siteName: 'Photo Editor Art',
+      siteName: 'Aiartools',
       images: [
         {
           url: '/images/og-image.png',
@@ -80,11 +80,11 @@ export async function generateMetadata({
     },
     manifest: '/site.webmanifest',
     alternates: {
-      canonical: `https://photo-editor.art/${locale}`,
+      canonical: `https://aiartools.com/${locale}`,
       languages: {
-        'en': 'https://photo-editor.art/en',
-        'zh': 'https://photo-editor.art/zh',
-        'x-default': 'https://photo-editor.art/en',
+        'en': 'https://aiartools.com/en',
+        'zh': 'https://aiartools.com/zh',
+        'x-default': 'https://aiartools.com/en',
       },
     },
   }
@@ -124,11 +124,11 @@ export default async function LocaleLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              "name": "Photo Editor Art",
+              "name": "Aiartools",
               "description": locale === 'zh' 
                 ? "用AI的力量改变你的图像。简单、快速、功能强大。"
                 : "Transform your images with the power of AI. Simple, fast, and incredibly powerful.",
-              "url": "https://photo-editor.art",
+              "url": "https://aiartools.com",
               "applicationCategory": "DesignApplication",
               "operatingSystem": "Web",
               "offers": {

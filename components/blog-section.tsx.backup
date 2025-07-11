@@ -21,13 +21,13 @@ export default function BlogSection({ locale }: BlogSectionProps) {
       key: "contact",
       link: `/${locale}/blog/contact-us`,
       sortDate: "2025-06-01",
-      image: "/images/Get in Touch with Photo Editor Art Team.png"
+      image: "/images/Get in Touch with Aiartools Team.png"
     },
     {
       key: "editingGuide", 
       link: `/${locale}/blog/how-to-edit-images`,
       sortDate: "2025-06-01",
-      image: "/images/How to Edit Images with Photo Editor Art.png"
+      image: "/images/How to Edit Images with Aiartools.png"
     },
     {
       key: "introduction",
