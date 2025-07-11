@@ -91,7 +91,7 @@ function BlogContent({ locale }: { locale: string }) {
       key: "introduction",
       link: `/${locale}/blog/introducing-aiartools`,
       sortDate: "2025-05-31",
-      image: "/images/Transform Your Images with the Power of AI.png"
+      image: "/images/Transform Your Photos with the Power of AI.png"
     },
   ]
 

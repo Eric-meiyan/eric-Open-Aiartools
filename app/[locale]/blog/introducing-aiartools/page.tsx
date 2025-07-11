@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       type: 'article',
       images: [
         {
-          url: 'https://photo-editor.art/images/Transform Your Images with the Power of AI.png',
+          url: 'https://photo-editor.art/images/Transform Your Photos with the Power of AI.png',
           width: 1000,
           height: 500,
           alt: 'Photo Editor Art Introduction',
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       card: 'summary_large_image',
       title,
       description,
-      images: ['https://photo-editor.art/images/Transform Your Images with the Power of AI.png'],
+      images: ['https://photo-editor.art/images/Transform Your Photos with the Power of AI.png'],
     },
     alternates: {
       canonical: `https://photo-editor.art/${locale}/blog/introducing-aiartools`,
@@ -236,7 +236,7 @@ export default async function IntroducingPhoto Editor Art({ params }: BlogPostPr
               {/* Featured Image */}
               <div className="mb-10 rounded-xl overflow-hidden">
                 <Image
-                  src="/images/Transform Your Images with the Power of AI.png"
+                  src="/images/Transform Your Photos with the Power of AI.png"
                   alt="Photo Editor Art Introduction"
                   width={1000}
                   height={500}
