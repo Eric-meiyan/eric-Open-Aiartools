@@ -17,7 +17,7 @@ export default async function LocalePage({
   const { locale } = await params
   
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
       <div className="min-h-screen bg-background">
         <Navigation locale={locale} />
         <main>

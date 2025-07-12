@@ -94,55 +94,57 @@ export default function Navigation({ locale }: NavigationProps) {
     <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <div className="flex items-center space-x-2 cursor-pointer" onClick={scrollToTop}>
-              <Image 
-                src="/images/logo.png" 
-                alt="Photo Editor Art Logo" 
-                width={32} 
-                height={32}
-                className="w-8 h-8"
-              />
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                Photo Editor Art
-              </h1>
+          <div className="flex items-center space-x-8">
+            {/* Logo */}
+            <div className="flex-shrink-0">
+              <div className="flex items-center space-x-2 cursor-pointer" onClick={scrollToTop}>
+                <Image 
+                  src="/images/logo.png" 
+                  alt="Photo Editor Art Logo" 
+                  width={32} 
+                  height={32}
+                  className="w-8 h-8"
+                />
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  Photo Editor Art
+                </h1>
+              </div>
             </div>
-          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              <button
-                onClick={scrollToTop}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
-              >
-                {t("home")}
-              </button>
-              <button
-                onClick={() => scrollToSection("features")}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
-              >
-                {t("features")}
-              </button>
-              <button
-                onClick={() => scrollToSection("demo")}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
-              >
-                {t("demo")}
-              </button>
-              <button
-                onClick={() => scrollToSection("pricing")}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
-              >
-                {t("pricing")}
-              </button>
-              <button
-                onClick={() => scrollToSection("blog")}
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
-              >
-                {t("blog")}
-              </button>
+            {/* Desktop Navigation */}
+            <div className="hidden md:block">
+              <div className="flex items-baseline space-x-4">
+                <button
+                  onClick={scrollToTop}
+                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
+                >
+                  {t("home")}
+                </button>
+                <button
+                  onClick={() => scrollToSection("features")}
+                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
+                >
+                  {t("features")}
+                </button>
+                <button
+                  onClick={() => scrollToSection("demo")}
+                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
+                >
+                  {t("demo")}
+                </button>
+                <button
+                  onClick={() => scrollToSection("pricing")}
+                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
+                >
+                  {t("pricing")}
+                </button>
+                <button
+                  onClick={() => scrollToSection("blog")}
+                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
+                >
+                  {t("blog")}
+                </button>
+              </div>
             </div>
           </div>
 
