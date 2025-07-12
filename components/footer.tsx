@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { TwitterIcon, GithubIcon, GlobeIcon } from "lucide-react"
+import { GithubIcon, GlobeIcon } from "lucide-react"
 import Link from "next/link"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
@@ -34,11 +34,6 @@ export default function Footer({ locale }: FooterProps) {
             </div>
             <p className="text-muted-foreground">{t("description")}</p>
             <div className="flex space-x-4">
-              <a href="https://x.com/zyailive" target="_blank" rel="noopener noreferrer">
-                <Button variant="ghost" size="icon">
-                  <TwitterIcon className="w-5 h-5" />
-                </Button>
-              </a>
               <a href="https://github.com/ItusiAI" target="_blank" rel="noopener noreferrer">
                 <Button variant="ghost" size="icon">
                   <GithubIcon className="w-5 h-5" />

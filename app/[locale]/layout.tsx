@@ -72,8 +72,8 @@ export async function generateMetadata({
       title: t('twitterTitle'),
       description: t('twitterDescription'),
       images: ['/images/og-image.png'],
-      creator: '@aiartools',
-      site: '@aiartools',
+      creator: '@photo-editor-art',
+      site: '@photo-editor-art',
     },
     icons: {
       icon: "/images/favicon.ico",

@@ -180,7 +180,7 @@ export default async function TermsPage({ params }: TermsPageProps) {
         contactTitle: "Contact Information",
         contactText: "If you have any questions about these Terms of Service, please contact us:",
         contactInfo:
-          "Email: wt@wmcircle.cn\nBusiness Hours: Monday - Friday, 9 AM - 5 PM\nResponse Time: We aim to respond within 24 hours",
+          "Email: eric.wuyu1352@gmail.com\nBusiness Hours: Monday - Friday, 9 AM - 5 PM\nResponse Time: We aim to respond within 24 hours",
       },
       zh: {
         backToHome: "返回首页",
@@ -291,7 +291,7 @@ export default async function TermsPage({ params }: TermsPageProps) {
         contactTitle: "联系信息",
         contactText: "如果您对这些服务条款有任何疑问，请联系我们：",
         contactInfo:
-          "电子邮件：wt@wmcircle.cn\n营业时间：周一至周五，上午9点至下午5点\n响应时间：我们力争在24小时内回复",
+          "电子邮件：eric.wuyu1352@gmail.com\n营业时间：周一至周五，上午9点至下午5点\n响应时间：我们力争在24小时内回复",
       },
     }
     return translations[locale]?.[key] || translations.en[key]

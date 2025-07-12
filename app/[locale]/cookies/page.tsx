@@ -170,7 +170,7 @@ export default async function CookiesPage({ params }: CookiesPageProps) {
         contactUsTitle: "Contact Us",
         contactUsText: "If you have any questions about our use of cookies or this Cookie Policy, please contact us:",
         contactInfo:
-          "Email: wt@wmcircle.cn\nSubject Line: Cookie Policy Inquiry\nResponse Time: We aim to respond within 24 hours",
+          "Email: eric.wuyu1352@gmail.com\nSubject Line: Cookie Policy Inquiry\nResponse Time: We aim to respond within 24 hours",
       },
       zh: {
         backToHome: "返回首页",
@@ -274,7 +274,7 @@ export default async function CookiesPage({ params }: CookiesPageProps) {
           "我们可能会不时更新此Cookie政策，以反映我们实践中的变化或出于其他运营、法律或监管原因。我们将通过在我们的网站上发布更新的政策并更新\"最后更新\"日期来通知您任何重大变更。",
         contactUsTitle: "联系我们",
         contactUsText: "如果您对我们使用Cookie或此Cookie政策有任何疑问，请联系我们：",
-        contactInfo: "电子邮件：wt@wmcircle.cn\n主题行：Cookie政策咨询\n响应时间：我们力争在24小时内回复",
+        contactInfo: "电子邮件：eric.wuyu1352@gmail.com\n主题行：Cookie政策咨询\n响应时间：我们力争在24小时内回复",
       },
     }
     return translations[locale]?.[key] || translations.en[key]

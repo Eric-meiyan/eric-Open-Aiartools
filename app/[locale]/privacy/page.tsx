@@ -143,7 +143,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
           "We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the Last updated date. We encourage you to review this Privacy Policy periodically.",
         contactUs: "Contact Us",
         contactIntro: "If you have any questions about this Privacy Policy or our data practices, please contact us:",
-        contactInfo: "Email: wt@wmcircle.cn\nResponse Time: We aim to respond within 24 hours",
+        contactInfo: "Email: eric.wuyu1352@gmail.com\nResponse Time: We aim to respond within 24 hours",
       },
       zh: {
         backToHome: "返回首页",
@@ -220,7 +220,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
           "我们可能会不时更新本隐私政策。我们将通过在此页面发布新的隐私政策并更新最后更新日期来通知您任何变更。我们鼓励您定期查看本隐私政策。",
         contactUs: "联系我们",
         contactIntro: "如果您对本隐私政策或我们的数据实践有任何疑问，请联系我们：",
-        contactInfo: "电子邮件：wt@wmcircle.cn\n响应时间：我们力争在24小时内回复",
+        contactInfo: "电子邮件：eric.wuyu1352@gmail.com\n响应时间：我们力争在24小时内回复",
       },
     }
     return translations[locale]?.[key] || translations.en[key]
