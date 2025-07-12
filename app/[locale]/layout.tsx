@@ -127,7 +127,7 @@ export default async function LocaleLayout({
               "name": "Photo Editor Art",
               "description": locale === 'zh' 
                 ? "用AI的力量改变你的图像。简单、快速、功能强大。"
-                : "Transform your images with the power of AI. Simple, fast, and incredibly powerful.",
+                : "Transform your photos with the power of AI. Simple, fast, and incredibly powerful.",
               "url": "https://photo-editor.art",
               "applicationCategory": "DesignApplication",
               "operatingSystem": "Web",
