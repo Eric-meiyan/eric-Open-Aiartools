@@ -13,6 +13,7 @@
     "features": "Features",
     "demo": "Demo",
     "pricing": "Pricing",
+    "promptGuide": "Prompt Guide",
     "blog": "Blog",
     "login": "Login",
     "register": "Sign Up",
@@ -92,6 +93,92 @@
     "subscribePro": "Subscribe Pro",
     "processing": "Processing...",
     "unknown": "Unknown"
+  },
+  "promptGuide": {
+    "title": "ChatGPT Photo Editing Prompts Guide",
+    "subtitle": "Learn how to write effective ChatGPT-style prompts for AI photo editing and discover ready-to-use templates",
+    "seo": {
+      "title": "ChatGPT Photo Editing Prompts Guide - AI Image Editing Commands",
+      "description": "Complete guide to ChatGPT photo editing prompts. Learn how to write effective AI image editing commands with ready-to-use templates and examples.",
+      "keywords": "chatgpt photo editing prompts, ai image editing commands, chatgpt prompts for photo editing, ai photo editing guide, image editing prompts, chatgpt image prompts",
+      "ogTitle": "ChatGPT Photo Editing Prompts - Complete AI Image Editing Guide",
+      "ogDescription": "Master ChatGPT-style prompts for photo editing. Get ready-to-use templates, optimization tips, and learn how to write effective AI image editing commands.",
+      "twitterTitle": "ChatGPT Photo Editing Prompts Guide",
+      "twitterDescription": "🤖 Master ChatGPT prompts for photo editing! Ready-to-use templates, optimization tips, and AI image editing commands."
+    },
+    "tabs": {
+      "templates": "Templates",
+      "optimizer": "Optimizer",
+      "guide": "Guide"
+    },
+    "templatesTitle": "Ready-to-Use ChatGPT Photo Editing Prompts",
+    "templatesDescription": "Choose from professionally crafted ChatGPT-style prompts for common AI photo editing tasks",
+    "templates": {
+      "portrait": {
+        "title": "Portrait Enhancement",
+        "description": "Professional portrait retouching and lighting improvement"
+      },
+      "landscape": {
+        "title": "Landscape Enhancement",
+        "description": "Nature and landscape photography enhancement"
+      },
+      "artistic": {
+        "title": "Artistic Style",
+        "description": "Creative artistic transformations and stylization"
+      },
+      "restoration": {
+        "title": "Photo Restoration",
+        "description": "Restore and repair old or damaged photos"
+      },
+      "background": {
+        "title": "Background Change",
+        "description": "Professional background replacement and editing"
+      },
+      "color": {
+        "title": "Color Correction",
+        "description": "Color balance and tone adjustment"
+      }
+    },
+    "optimizerTitle": "ChatGPT Photo Editing Prompt Optimizer",
+    "optimizerDescription": "Improve your ChatGPT-style prompts with AI-powered suggestions for better photo editing results",
+    "yourPrompt": "Your Prompt",
+    "promptPlaceholder": "Enter your editing instruction here...",
+    "optimizePrompt": "Optimize Prompt",
+    "optimizing": "Optimizing...",
+    "optimizedPrompt": "Optimized Prompt",
+    "copyPrompt": "Copy Prompt",
+    "copyOptimized": "Copy Optimized",
+    "copied": "Copied to clipboard!",
+    "enterPrompt": "Please enter a prompt to optimize",
+    "optimized": "Prompt optimized successfully!",
+    "optimizationFailed": "Optimization failed, please try again",
+    "guideTitle": "How to Write Effective ChatGPT Photo Editing Prompts",
+    "guideDescription": "Learn the best practices for writing ChatGPT-style prompts for AI photo editing",
+    "doTitle": "✅ Do",
+    "dontTitle": "❌ Don't",
+    "tips": {
+      "specific": "Be specific about what you want to change",
+      "clear": "Use clear and descriptive language",
+      "style": "Mention style preferences (modern, vintage, etc.)",
+      "lighting": "Include lighting preferences when relevant",
+      "quality": "Add quality terms (professional, high-resolution)"
+    },
+    "warnings": {
+      "vague": "Avoid vague terms like 'make it better'",
+      "contradictory": "Don't use contradictory instructions",
+      "tooLong": "Keep prompts concise and focused",
+      "negative": "Focus on what you want, not what you don't want",
+      "unrealistic": "Avoid unrealistic expectations"
+    },
+    "examplesTitle": "Examples",
+    "goodExample": "Good Example:",
+    "badExample": "Poor Example:",
+    "examples": {
+      "good": "Please enhance portrait lighting for a professional headshot with soft natural lighting and improved skin texture",
+      "bad": "make it look good and fix everything"
+    },
+    "chatgptIntro": "Perfect for users familiar with ChatGPT who want to apply similar prompt techniques to photo editing. These AI image editing commands work with the same conversational style you're used to.",
+    "chatgptTips": "ChatGPT users will find these prompts familiar - use clear, descriptive language just like you would when chatting with ChatGPT for other tasks."
   },
   "auth": {
     "register": {

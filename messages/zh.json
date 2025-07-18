@@ -13,6 +13,7 @@
     "features": "功能特色",
     "demo": "在线体验",
     "pricing": "价格方案",
+    "promptGuide": "提示词指南",
     "blog": "博客",
     "login": "登录",
     "register": "注册",
@@ -176,6 +177,92 @@
     "alreadySubscribed": "您已有活跃订阅，无需重复订阅",
     "subscribe": "订阅",
     "subscribedPro": "已订阅Pro版"
+  },
+  "promptGuide": {
+    "title": "ChatGPT照片编辑提示词指南",
+    "subtitle": "学习如何写出有效的ChatGPT风格AI照片编辑提示词，发现即用型模板",
+    "seo": {
+      "title": "ChatGPT照片编辑提示词指南 - AI图像编辑指令大全",
+      "description": "完整的ChatGPT照片编辑提示词指南。学习如何写出有效的AI图像编辑指令，包含即用型模板和实例。",
+      "keywords": "chatgpt照片编辑提示词, ai图像编辑指令, chatgpt修图提示词, ai照片编辑指南, 图像编辑提示词, chatgpt图像提示词",
+      "ogTitle": "ChatGPT照片编辑提示词 - 完整AI图像编辑指南",
+      "ogDescription": "掌握ChatGPT风格的照片编辑提示词。获取即用型模板、优化技巧，学习如何写出有效的AI图像编辑指令。",
+      "twitterTitle": "ChatGPT照片编辑提示词指南",
+      "twitterDescription": "🤖 掌握ChatGPT照片编辑提示词！即用型模板、优化技巧和AI图像编辑指令大全。"
+    },
+    "tabs": {
+      "templates": "模板",
+      "optimizer": "优化器",
+      "guide": "指南"
+    },
+    "templatesTitle": "即用型ChatGPT照片编辑提示词",
+    "templatesDescription": "选择专业制作的ChatGPT风格提示词模板，适用于常见的AI照片编辑任务",
+    "templates": {
+      "portrait": {
+        "title": "人像增强",
+        "description": "专业人像修饰和光线改善"
+      },
+      "landscape": {
+        "title": "风景增强",
+        "description": "自然和风景摄影增强"
+      },
+      "artistic": {
+        "title": "艺术风格",
+        "description": "创意艺术变换和风格化"
+      },
+      "restoration": {
+        "title": "照片修复",
+        "description": "修复和恢复旧照片或损坏的照片"
+      },
+      "background": {
+        "title": "背景替换",
+        "description": "专业背景替换和编辑"
+      },
+      "color": {
+        "title": "色彩校正",
+        "description": "色彩平衡和色调调整"
+      }
+    },
+    "optimizerTitle": "ChatGPT照片编辑提示词优化器",
+    "optimizerDescription": "使用AI驱动的建议改善您的ChatGPT风格提示词以获得更好的照片编辑结果",
+    "yourPrompt": "您的提示词",
+    "promptPlaceholder": "在此输入您的编辑指令...",
+    "optimizePrompt": "优化提示词",
+    "optimizing": "优化中...",
+    "optimizedPrompt": "优化后的提示词",
+    "copyPrompt": "复制提示词",
+    "copyOptimized": "复制优化版本",
+    "copied": "已复制到剪贴板！",
+    "enterPrompt": "请输入要优化的提示词",
+    "optimized": "提示词优化成功！",
+    "optimizationFailed": "优化失败，请重试",
+    "guideTitle": "如何写出有效的ChatGPT照片编辑提示词",
+    "guideDescription": "学习编写ChatGPT风格AI照片编辑提示词的最佳实践",
+    "doTitle": "✅ 应该",
+    "dontTitle": "❌ 不应该",
+    "tips": {
+      "specific": "具体描述您想要改变的内容",
+      "clear": "使用清晰和描述性的语言",
+      "style": "提及风格偏好（现代、复古等）",
+      "lighting": "在相关时包含光线偏好",
+      "quality": "添加质量术语（专业、高分辨率）"
+    },
+    "warnings": {
+      "vague": "避免使用模糊的词汇如'让它更好'",
+      "contradictory": "不要使用自相矛盾的指令",
+      "tooLong": "保持提示词简洁且聚焦",
+      "negative": "专注于您想要的，而不是不想要的",
+      "unrealistic": "避免不切实际的期望"
+    },
+    "examplesTitle": "示例",
+    "goodExample": "好的示例：",
+    "badExample": "不好的示例：",
+    "examples": {
+      "good": "请增强人像光线，制作专业头像，使用柔和自然光线，改善皮肤质地",
+      "bad": "让它看起来好看，修复所有问题"
+    },
+    "chatgptIntro": "非常适合熟悉ChatGPT的用户，将类似的提示词技巧应用于照片编辑。这些AI图像编辑指令使用您习惯的对话风格。",
+    "chatgptTips": "ChatGPT用户会发现这些提示词很熟悉——使用清晰、描述性的语言，就像您与ChatGPT聊天处理其他任务一样。"
   },
   "testimonials": {
     "title": "用户评价",

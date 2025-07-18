@@ -133,6 +133,15 @@ export default function Navigation({ locale }: NavigationProps) {
                   {t("demo")}
                 </button>
                 <button
+                  onClick={() => {
+                    router.push(`/${locale}/prompt-guide`)
+                    setIsMenuOpen(false)
+                  }}
+                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
+                >
+                  {t("promptGuide")}
+                </button>
+                <button
                   onClick={() => scrollToSection("pricing")}
                   className="text-foreground hover:text-primary px-3 py-2 rounded-md text-base font-medium transition-colors"
                 >
@@ -254,6 +263,15 @@ export default function Navigation({ locale }: NavigationProps) {
                 className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium w-full text-left transition-colors"
               >
                 {t("demo")}
+              </button>
+              <button
+                onClick={() => {
+                  router.push(`/${locale}/prompt-guide`)
+                  setIsMenuOpen(false)
+                }}
+                className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium w-full text-left transition-colors"
+              >
+                {t("promptGuide")}
               </button>
               <button
                 onClick={() => scrollToSection("pricing")}

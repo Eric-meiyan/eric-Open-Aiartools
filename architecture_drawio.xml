@@ -1,0 +1,334 @@
+<mxfile host="app.diagrams.net" modified="2025-01-01T00:00:00.000Z" agent="5.0" etag="xxx" version="24.7.17" type="device">
+  <diagram name="大型电商产品全景图" id="xxx">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- 标题 -->
+        <mxCell id="title" value="大型电商产品全景图" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="10" width="300" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- 用户端层 -->
+        <mxCell id="user-layer" value="用户端" style="swimlane;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="70" width="1500" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user-management" value="用户管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="20" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="mobile-app" value="移动端" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="120" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="web-app" value="网站" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="220" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="wechat" value="微信小程序" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;fontColor=#9673a6;strokeColor=#9673a6;" vertex="1" parent="user-layer">
+          <mxGeometry x="320" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="h5" value="H5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="420" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="wechat-service" value="微信" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="520" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="service-hall" value="服务大厅" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="620" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="call-center" value="呼叫中心" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="720" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="pos" value="POS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="820" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="personal-center" value="个人中心" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="920" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="bi" value="BI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-layer">
+          <mxGeometry x="1020" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- 业务层 -->
+        <mxCell id="business-layer" value="业务层" style="swimlane;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="180" width="1500" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- 用户中心 -->
+        <mxCell id="user-center" value="用户中心" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;fontColor=#b85450;strokeColor=#b85450;" vertex="1" parent="business-layer">
+          <mxGeometry x="20" y="30" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user-profile" value="用户资料" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-center">
+          <mxGeometry x="10" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user-auth" value="人员管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-center">
+          <mxGeometry x="10" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user-level" value="用户级别" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="user-center">
+          <mxGeometry x="65" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 商品中心 -->
+        <mxCell id="product-center" value="商品中心" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;fontColor=#b85450;strokeColor=#b85450;" vertex="1" parent="business-layer">
+          <mxGeometry x="160" y="30" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="product-management" value="主数据SPU" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="product-center">
+          <mxGeometry x="10" y="25" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="product-rules" value="分类管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="product-center">
+          <mxGeometry x="10" y="50" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="product-category" value="商品信息SKU" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="product-center">
+          <mxGeometry x="75" y="25" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="product-attributes" value="上下架管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="product-center">
+          <mxGeometry x="75" y="50" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 价格中心 -->
+        <mxCell id="price-center" value="价格中心" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;fontColor=#b85450;strokeColor=#b85450;" vertex="1" parent="business-layer">
+          <mxGeometry x="320" y="30" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="price-strategy" value="价格策略" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="price-center">
+          <mxGeometry x="10" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="price-promotion" value="促销活动" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="price-center">
+          <mxGeometry x="10" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="price-calculation" value="价格计算" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="price-center">
+          <mxGeometry x="65" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="price-management" value="价格管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="price-center">
+          <mxGeometry x="65" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 营销中心+CMS -->
+        <mxCell id="marketing-center" value="营销中心+CMS" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;fontColor=#b85450;strokeColor=#b85450;" vertex="1" parent="business-layer">
+          <mxGeometry x="460" y="30" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="marketing-tools" value="营销工具" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="marketing-center">
+          <mxGeometry x="10" y="25" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="cms-management" value="CMS管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="marketing-center">
+          <mxGeometry x="10" y="50" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="content-management" value="内容管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="marketing-center">
+          <mxGeometry x="75" y="25" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="activity-management" value="活动管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="marketing-center">
+          <mxGeometry x="75" y="50" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 订单系统 -->
+        <mxCell id="order-system" value="订单系统" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;fontColor=#b85450;strokeColor=#b85450;" vertex="1" parent="business-layer">
+          <mxGeometry x="620" y="30" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="order-management" value="订单管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="order-system">
+          <mxGeometry x="10" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="order-tracking" value="订单跟踪" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="order-system">
+          <mxGeometry x="10" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="order-process" value="订单流程" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="order-system">
+          <mxGeometry x="65" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 服务层 -->
+        <mxCell id="service-layer" value="服务层" style="swimlane;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="320" width="1500" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- IT基础设施 -->
+        <mxCell id="it-infrastructure" value="IT基础设施" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#d6b656;strokeColor=#d6b656;" vertex="1" parent="service-layer">
+          <mxGeometry x="20" y="30" width="100" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="server-management" value="服务器管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="it-infrastructure">
+          <mxGeometry x="10" y="25" width="80" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="network-management" value="网络管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="it-infrastructure">
+          <mxGeometry x="10" y="50" width="80" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="security-management" value="安全管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="it-infrastructure">
+          <mxGeometry x="10" y="75" width="80" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 数据层 -->
+        <mxCell id="data-layer" value="数据层" style="swimlane;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="480" width="1500" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- 数据与权限 -->
+        <mxCell id="data-auth" value="数据与权限" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#82b366;strokeColor=#82b366;" vertex="1" parent="data-layer">
+          <mxGeometry x="20" y="30" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="data-security" value="数据安全" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="data-auth">
+          <mxGeometry x="10" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="auth-management" value="权限管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="data-auth">
+          <mxGeometry x="10" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="data-governance" value="数据治理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="data-auth">
+          <mxGeometry x="65" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 主数据 -->
+        <mxCell id="master-data" value="主数据" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#82b366;strokeColor=#82b366;" vertex="1" parent="data-layer">
+          <mxGeometry x="160" y="30" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="customer-data" value="用户主数据" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="master-data">
+          <mxGeometry x="10" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="product-data" value="产品主数据" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="master-data">
+          <mxGeometry x="10" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="supplier-data" value="供应商数据" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="master-data">
+          <mxGeometry x="65" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 支撑层 -->
+        <mxCell id="support-layer" value="支撑层" style="swimlane;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="620" width="1500" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- 数字与权限 -->
+        <mxCell id="digital-auth" value="数字与权限" style="swimlane;whiteSpace=wrap;html=1;fillColor=#e1d5e7;fontColor=#9673a6;strokeColor=#9673a6;" vertex="1" parent="support-layer">
+          <mxGeometry x="20" y="30" width="120" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="digital-cert" value="数字证书" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="digital-auth">
+          <mxGeometry x="10" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="access-control" value="访问控制" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="digital-auth">
+          <mxGeometry x="10" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="role-management" value="角色管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="digital-auth">
+          <mxGeometry x="10" y="75" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 财务服务中心 -->
+        <mxCell id="finance-center" value="财务服务中心" style="swimlane;whiteSpace=wrap;html=1;fillColor=#e1d5e7;fontColor=#9673a6;strokeColor=#9673a6;" vertex="1" parent="support-layer">
+          <mxGeometry x="300" y="30" width="120" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="finance-management" value="财务管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="finance-center">
+          <mxGeometry x="10" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="billing-management" value="账单管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="finance-center">
+          <mxGeometry x="10" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="payment-management" value="支付管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="finance-center">
+          <mxGeometry x="65" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 商家中心 -->
+        <mxCell id="merchant-center" value="商家中心" style="swimlane;whiteSpace=wrap;html=1;fillColor=#e1d5e7;fontColor=#9673a6;strokeColor=#9673a6;" vertex="1" parent="support-layer">
+          <mxGeometry x="580" y="30" width="120" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="merchant-management" value="商家管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="merchant-center">
+          <mxGeometry x="10" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="merchant-settlement" value="商家结算" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="merchant-center">
+          <mxGeometry x="10" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="merchant-service" value="商家服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="merchant-center">
+          <mxGeometry x="65" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Open API -->
+        <mxCell id="open-api" value="Open API" style="swimlane;whiteSpace=wrap;html=1;fillColor=#e1d5e7;fontColor=#9673a6;strokeColor=#9673a6;" vertex="1" parent="support-layer">
+          <mxGeometry x="860" y="30" width="120" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="api-gateway" value="API网关" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="open-api">
+          <mxGeometry x="10" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="api-management" value="API管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="open-api">
+          <mxGeometry x="10" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="api-security" value="API安全" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="open-api">
+          <mxGeometry x="65" y="25" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="api-monitor" value="API监控" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="open-api">
+          <mxGeometry x="65" y="50" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- 数据流向箭头 -->
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="user-layer" target="business-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="800" y="160" as="sourcePoint" />
+            <mxPoint x="850" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="business-layer" target="service-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="800" y="310" as="sourcePoint" />
+            <mxPoint x="850" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="service-layer" target="data-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="800" y="470" as="sourcePoint" />
+            <mxPoint x="850" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="data-layer" target="support-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="800" y="610" as="sourcePoint" />
+            <mxPoint x="850" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

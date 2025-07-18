@@ -1,9 +1,10 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowRightIcon, PlayIcon } from "lucide-react"
+import { ArrowRightIcon, PlayIcon, BookOpenIcon } from "lucide-react"
 import ImageComparison from "@/components/image-comparison"
 import { useTranslations } from "next-intl"
+import { useRouter } from "next/navigation"
 
 interface HeroSectionProps {
   locale: string
@@ -11,6 +12,8 @@ interface HeroSectionProps {
 
 export default function HeroSection({ locale }: HeroSectionProps) {
   const t = useTranslations("hero")
+  const tNav = useTranslations("navigation")
+  const router = useRouter()
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -42,6 +45,14 @@ export default function HeroSection({ locale }: HeroSectionProps) {
               >
                 <PlayIcon className="mr-2 h-5 w-5" />
                 {t("tryDemo")}
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                onClick={() => router.push(`/${locale}/prompt-guide`)}
+              >
+                <BookOpenIcon className="mr-2 h-5 w-5" />
+                {tNav("promptGuide")}
               </Button>
               <Button size="lg" variant="outline" onClick={() => scrollToSection("pricing")}>
                 {t("viewPricing")}
