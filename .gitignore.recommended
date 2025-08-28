@@ -1,52 +1,47 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+# Dependencies
 /node_modules
 /.pnp
 .pnp.js
 
-# testing
+# Testing
 /coverage
 
-# next.js
+# Next.js
 /.next/
 /out/
 
-# production
+# Production
 /build
 /dist
 
-# misc
+# Misc
 .DS_Store
 *.tsbuildinfo
 next-env.d.ts
 
-# debug
+# Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 lerna-debug.log*
 
-# runtime data
+# Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
 
-# logs
+# Logs
 logs
 *.log
 
-# env files - CRITICAL
+# Environment variables - CRITICAL
 .env*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-
-# vercel
-.vercel
 
 # IDEs and editors
 /.vscode
@@ -56,8 +51,6 @@ logs
 *~
 
 # OS generated files
-.DS_Store
-**/.DS_Store
 Thumbs.db
 ehthumbs.db
 Desktop.ini
@@ -67,13 +60,11 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
-# backup files
+# Backup files
 *.backup
 *.bak
 *.old
 *.orig
-**/*.backup
-**/*.bak
 
 # API keys and secrets
 secrets.json
@@ -82,34 +73,37 @@ secrets.json
 *.p12
 *.pfx
 
-# database
+# Database
 *.db
 *.sqlite
 *.sqlite3
 
-# cache
+# Cache
 .cache
 /.cache
 .parcel-cache
 
-# temporary folders
+# Vercel
+.vercel
+
+# Temporary folders
 tmp/
 temp/
 
-# test files and personal notes
+# Test files (adjust as needed)
 test-*.png
 test-*.jpg
 image*.png
+
+# Personal notes and docs
 allworks.md
 TODO.md
 NOTES.md
-check-rebrand.sh
-load-env.js
 
-# build tools
+# Build tools
 .turbo
 
-# package managers
+# Package managers
 .yarn/cache
 .yarn/unplugged
 .yarn/build-state.yml
