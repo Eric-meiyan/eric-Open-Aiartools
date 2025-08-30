@@ -82,13 +82,7 @@ export default function Footer({ locale }: FooterProps) {
                 <Link href={`/${locale}/blog/contact-us`} className="hover:text-foreground transition-colors">
                   {t("support.contact")}
                 </Link>
-              </li>
-              <li>
-                <div className="flex items-center space-x-2 hover:text-foreground transition-colors">
-                  <MessageCircle className="w-4 h-4" />
-                  <span>{t("support.wechat")}: ericmeiyan</span>
-                </div>
-              </li>
+              </li>              
               <li>
                 <Link href={`/${locale}/terms`} className="hover:text-foreground transition-colors">
                   {t("terms")}
