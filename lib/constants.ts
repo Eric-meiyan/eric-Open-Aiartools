@@ -1,7 +1,7 @@
 // 积分系统配置
 export const CREDIT_CONFIG = {
   // 注册赠送积分
-  REGISTRATION_BONUS: 10,
+  REGISTRATION_BONUS: 100,
   
   // 各种操作消耗的积分
   COSTS: {
