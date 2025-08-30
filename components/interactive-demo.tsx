@@ -69,18 +69,10 @@ interface MultiImageApiResponse {
   error?: string;
 }
 
-// 纵横比选项
-const getAspectRatios = (t: any) => [
-  { value: 'original', label: t('aspectRatios.original') },
-  { value: '21:9', label: t('aspectRatios.ultrawide') },
-  { value: '16:9', label: t('aspectRatios.widescreen') },
-  { value: '4:3', label: t('aspectRatios.standard') },
-  { value: '3:2', label: t('aspectRatios.classic') },
-  { value: '1:1', label: t('aspectRatios.square') },
-  { value: '2:3', label: t('aspectRatios.portraitClassic') },
-  { value: '3:4', label: t('aspectRatios.portraitStandard') },
-  { value: '9:16', label: t('aspectRatios.portraitWidescreen') },
-  { value: '9:21', label: t('aspectRatios.portraitUltrawide') }
+// Nano Banana模型只支持输出格式选择
+const getOutputFormats = (t: any) => [
+  { value: 'jpeg', label: t('outputFormats.jpeg') || 'JPEG' },
+  { value: 'png', label: t('outputFormats.png') || 'PNG' }
 ]
 
 // 支持的文件格式
@@ -92,7 +84,7 @@ const SUPPORTED_FORMATS = [
   'image/avif'
 ]
 
-const MAX_FILES = 10
+const MAX_FILES = 2 // Nano Banana模型最多支持2张图片
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 
 export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
@@ -107,7 +99,8 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
   const [generatedImages, setGeneratedImages] = useState<string[]>([])
   const [showDownloadSuccess, setShowDownloadSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [aspectRatio, setAspectRatio] = useState<string>('original')
+  const [outputFormat, setOutputFormat] = useState<'jpeg' | 'png'>('jpeg')
+  const [numImages, setNumImages] = useState<number>(1)
   const { user, isLoading, refreshUser } = useAuth()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const multiFileInputRef = useRef<HTMLInputElement>(null)
@@ -117,7 +110,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
   const router = useRouter()
   const { toast } = useToast()
 
-  const aspectRatios = getAspectRatios(useTranslations())
+  const outputFormats = getOutputFormats(useTranslations())
 
   // 清理文件URL的函数
   const cleanupFileUrls = (filesToCleanup: File[]) => {
@@ -248,9 +241,9 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
     
     if (files.length === 0) return
 
-    // 检查文件数量
+    // 检查文件数量 - Nano Banana最多支持2张图片
     if (uploadedFiles.length + files.length > MAX_FILES) {
-      setError(t("maxFilesError", { max: MAX_FILES }))
+      setError(`最多只能上传${MAX_FILES}张图片（Nano Banana模型限制）`)
       return
     }
 
@@ -375,10 +368,10 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
         formData.append('image', uploadedFile!)
         formData.append('prompt', translatedPrompt)
         formData.append('locale', locale)
+        formData.append('output_format', outputFormat)
         
-        // 添加纵横比参数（如果选择了且不是原图比例）
-        if (aspectRatio && aspectRatio !== 'original') {
-          formData.append('aspect_ratio', aspectRatio)
+        if (numImages > 1) {
+          formData.append('num_images', numImages.toString())
         }
         
         // 检查是否是背景移除操作
@@ -456,10 +449,10 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
         
         formData.append('prompt', translatedPrompt)
         formData.append('locale', locale)
+        formData.append('output_format', outputFormat)
         
-        // 添加纵横比参数（如果选择了且不是原图比例）
-        if (aspectRatio && aspectRatio !== 'original') {
-          formData.append('aspect_ratio', aspectRatio)
+        if (numImages > 1) {
+          formData.append('num_images', numImages.toString())
         }
 
         console.log(tLogs('sendingRequest'))
@@ -660,7 +653,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
               <Card>
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold mb-4">
-                    {editMode === 'single' ? t("uploadImage") : t("maxImagesNote", { count: MAX_FILES })}
+                    {editMode === 'single' ? t("uploadImage") : `${t("uploadMultiImages")} (最多${MAX_FILES}张)`}
                   </h3>
                   
                   {editMode === 'single' ? (
@@ -800,22 +793,40 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                     </div>
                   )}
 
-                  {/* Aspect Ratio Selection */}
-                  <div className="mb-6">
-                    <label className="text-sm font-medium mb-2 block">{t("aspectRatioLabel")}</label>
-                    <Select value={aspectRatio} onValueChange={setAspectRatio}>
+                  {/* Output Format Selection */}
+                  <div className="mb-4">
+                    <label className="text-sm font-medium mb-2 block">{t("outputFormatLabel") || "输出格式"}</label>
+                    <Select value={outputFormat} onValueChange={(value: 'jpeg' | 'png') => setOutputFormat(value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder={t("aspectRatioPlaceholder")} />
+                        <SelectValue placeholder={t("outputFormatPlaceholder") || "选择输出格式"} />
                       </SelectTrigger>
                       <SelectContent>
-                        {aspectRatios.map((ratio) => (
-                          <SelectItem key={ratio.value} value={ratio.value}>
-                            {ratio.label}
+                        {outputFormats.map((format) => (
+                          <SelectItem key={format.value} value={format.value}>
+                            {format.label}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
+
+                  {/* Number of Images - 仅在单图模式下显示 */}
+                  {editMode === 'single' && (
+                    <div className="mb-6">
+                      <label className="text-sm font-medium mb-2 block">{t("numImagesLabel") || "生成图片数量"}</label>
+                      <Select value={numImages.toString()} onValueChange={(value) => setNumImages(parseInt(value))}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1 {t("image") || "张"}</SelectItem>
+                          <SelectItem value="2">2 {t("images") || "张"}</SelectItem>
+                          <SelectItem value="3">3 {t("images") || "张"}</SelectItem>
+                          <SelectItem value="4">4 {t("images") || "张"}</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
 
                   {/* Error Message */}
                   {error && (

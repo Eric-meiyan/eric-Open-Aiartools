@@ -151,7 +151,8 @@ export async function POST(request: NextRequest) {
     // 获取其他表单数据
     const images = formData.getAll('images') as File[];
     const prompt = formData.get('prompt') as string;
-    const aspectRatio = formData.get('aspect_ratio') as string;
+    const outputFormat = formData.get('output_format') as 'jpeg' | 'png' || 'jpeg';
+    const numImages = formData.get('num_images') ? parseInt(formData.get('num_images') as string) : undefined;
 
     // 验证输入
     if (!images || images.length === 0) {
@@ -168,10 +169,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 检查文件数量限制
-    if (images.length > 10) {
+    // 检查文件数量限制 - Nano Banana只支持1-2张图片
+    if (images.length > 2) {
       return NextResponse.json(
-        { success: false, error: getMessage(locale, 'maxImagesLimit') },
+        { success: false, error: 'Nano Banana模型最多支持2张图片同时编辑' },
         { status: 400 }
       );
     }
@@ -250,10 +251,12 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 准备API请求参数 - 使用最简配置
+    // 准备API请求参数 - Nano Banana模型参数
     const apiParams: any = {
       prompt: prompt.trim(),
-      image_urls: imageUrls
+      image_urls: imageUrls,
+      num_images: Math.min(numImages || imageUrls.length, 4),
+      output_format: outputFormat
     };
 
     console.log('调用fal.ai多图编辑API，参数:', {
@@ -280,8 +283,8 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      // 调用fal.ai多图编辑API - 使用效果更好的max模型
-      const result = await fal.subscribe("fal-ai/flux-pro/kontext/max/multi", {
+      // 调用fal.ai多图编辑API - 使用Nano Banana Edit模型
+      const result = await fal.subscribe("fal-ai/nano-banana/edit", {
         input: apiParams,
         logs: true,
         onQueueUpdate: (update) => {
@@ -319,7 +322,8 @@ export async function POST(request: NextRequest) {
           prompt: prompt.trim(),
           imageCount: images.length,
           creditsUsed: creditsNeeded,
-          aspectRatio: aspectRatio || 'original',
+          output_format: outputFormat,
+          num_images: numImages,
           locale,
           type: 'multi_image_edit'
         }
@@ -337,7 +341,8 @@ export async function POST(request: NextRequest) {
         success: true,
         data: {
           images: result.images,
-          model_used: 'flux-pro-kontext-max-multi',
+          description: result.description,
+          model_used: 'nano-banana-edit-multi',
           input_count: images.length,
           output_count: result.images.length,
           message: `成功编辑了 ${images.length} 张图片，生成了 ${result.images.length} 张结果图片`
@@ -450,6 +455,6 @@ export async function GET() {
     max_files: MAX_FILES,
     processing_modes: ['edit'],
     credit_cost: `${CREDIT_CONFIG.COSTS.MULTI_IMAGE_EDIT} credits per edit`,
-    models: ['flux-pro-kontext-max-multi']
+    models: ['nano-banana-edit']
   });
 } 

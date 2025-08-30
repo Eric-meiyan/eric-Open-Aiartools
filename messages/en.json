@@ -428,7 +428,16 @@
       "anime": "Please convert the image into anime style",
       "removeBackground": "Please remove image background",
       "colorizeOldPhoto": "Restore and colorize this image. Remove any scratches or imperfections."
-    }
+    },
+    "outputFormatLabel": "Output Format",
+    "outputFormatPlaceholder": "Select output format",
+    "numImagesLabel": "Number of Images",
+    "image": "image",
+    "images": "images"
+  },
+  "outputFormats": {
+    "jpeg": "JPEG",
+    "png": "PNG"
   },
   "pricing": {
     "title": "Choose Your Plan",
@@ -565,7 +574,8 @@
       "help": "Help Center",
       "contact": "Contact Us",
       "status": "Status",
-      "community": "Community"
+      "community": "Community",
+      "wechat": "WeChat"
     },
     "resources": {
       "title": "Resources",

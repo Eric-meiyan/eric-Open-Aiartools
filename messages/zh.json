@@ -129,7 +129,16 @@
       "anime": "Please convert the image into anime style",
       "removeBackground": "Please remove image background",
       "colorizeOldPhoto": "Restore and colorize this image. Remove any scratches or imperfections."
-    }
+    },
+    "outputFormatLabel": "输出格式",
+    "outputFormatPlaceholder": "选择输出格式",
+    "numImagesLabel": "生成图片数量",
+    "image": "张",
+    "images": "张"
+  },
+  "outputFormats": {
+    "jpeg": "JPEG",
+    "png": "PNG"
   },
   "pricing": {
     "title": "选择适合您的计划",
@@ -352,7 +361,8 @@
       "help": "帮助中心",
       "contact": "联系我们",
       "status": "服务状态",
-      "community": "社区"
+      "community": "社区",
+      "wechat": "微信"
     },
     "resources": {
       "title": "资源",

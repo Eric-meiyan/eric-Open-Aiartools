@@ -15,9 +15,11 @@ type AspectRatio = "21:9" | "16:9" | "4:3" | "3:2" | "1:1" | "2:3" | "3:4" | "9:
 interface FalResponse {
   images?: FalImageResult[];
   image?: FalImageResult;
+  description?: string;
   data?: {
     images?: FalImageResult[];
     image?: FalImageResult;
+    description?: string;
   };
   timings?: any;
   seed?: number;
@@ -55,31 +57,21 @@ fal.config({
   credentials: process.env.FAL_KEY,
 });
 
-// 智能图像编辑 - 使用 Kontext Dev 模型
-export async function smartImageEdit(imageUrl: string, prompt: string, options?: {
-  guidance_scale?: number;
+// 图像编辑 - 使用 Nano Banana Edit 模型
+export async function editImage(imageUrl: string, prompt: string, options?: {
   num_images?: number;
-  sync_mode?: boolean;
-  aspect_ratio?: AspectRatio;
   output_format?: "jpeg" | "png";
-  seed?: number;
-  safety_tolerance?: "1" | "2" | "3" | "4" | "5" | "6";
   locale?: string;
 }) {
   try {
-    console.log('Calling Kontext Dev model for smart editing...');
+    console.log('Calling Nano Banana Edit model...');
     
-    const result = await fal.subscribe("fal-ai/flux-kontext/dev", {
+    const result = await fal.subscribe("fal-ai/nano-banana/edit", {
       input: {
         prompt: prompt,
-        image_url: imageUrl,
-        guidance_scale: options?.guidance_scale ?? 3.5,
+        image_urls: [imageUrl],
         num_images: options?.num_images ?? 1,
-        sync_mode: options?.sync_mode ?? true,
-        safety_tolerance: options?.safety_tolerance ?? "2",
         output_format: options?.output_format ?? "jpeg",
-        ...(options?.aspect_ratio && { aspect_ratio: options.aspect_ratio }),
-        ...(options?.seed && { seed: options.seed }),
       },
       logs: true,
       onQueueUpdate: (update) => {
@@ -91,31 +83,14 @@ export async function smartImageEdit(imageUrl: string, prompt: string, options?:
 
     console.log('Fal AI response:', result);
     
-    // 添加更详细的调试信息
-    console.log('========== Fal AI detailed response analysis ==========');
-    console.log('Complete response object:', JSON.stringify(result, null, 2));
-    console.log('result.images:', result.images);
-    console.log('result.data:', result.data);
-    console.log('result.data type:', typeof result.data);
-    if (result.data) {
-      console.log('result.data.images:', result.data.images);
-      console.log('result.data.image:', result.data.image);
-    }
-    console.log('=======================================');
-
-    // 处理不同的响应格式
+    // 处理响应格式
     let images: FalImageResult[] = [];
     
-    // 首先检查根对象中的 images
     if (result.images && Array.isArray(result.images)) {
       images = result.images;
-    } 
-    // 然后检查根对象中的 image
-    else if (result.image) {
+    } else if (result.image) {
       images = [result.image];
-    }
-    // 最后检查 data 对象中的数据
-    else if (result.data?.images && Array.isArray(result.data.images)) {
+    } else if (result.data?.images && Array.isArray(result.data.images)) {
       images = result.data.images;
     } else if (result.data?.image) {
       images = [result.data.image];
@@ -134,17 +109,17 @@ export async function smartImageEdit(imageUrl: string, prompt: string, options?:
       success: true,
       data: {
         images: images,
-        model_used: 'flux-kontext-dev',
+        model_used: 'nano-banana-edit',
         prompt_used: prompt,
+        description: result.description || result.data?.description,
         parameters: {
-          guidance_scale: options?.guidance_scale ?? 3.5,
-          aspect_ratio: options?.aspect_ratio,
           output_format: options?.output_format ?? "jpeg",
+          num_images: options?.num_images ?? 1,
         }
       }
     };
   } catch (error) {
-    console.error('Smart image edit error:', error);
+    console.error('Image edit error:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : await getErrorMessage('unknownError', options?.locale)
@@ -152,239 +127,62 @@ export async function smartImageEdit(imageUrl: string, prompt: string, options?:
   }
 }
 
-// 精确图像编辑（用于细节调整）
+// 兼容性别名
+export async function smartImageEdit(imageUrl: string, prompt: string, options?: {
+  num_images?: number;
+  output_format?: "jpeg" | "png";
+  locale?: string;
+}) {
+  return await editImage(imageUrl, prompt, options);
+}
+
 export async function preciseImageEdit(imageUrl: string, prompt: string, options?: {
-  guidance_scale?: number;
   num_images?: number;
-  aspect_ratio?: AspectRatio;
   output_format?: "jpeg" | "png";
-  seed?: number;
-  safety_tolerance?: "1" | "2" | "3" | "4" | "5" | "6";
   locale?: string;
 }) {
-  try {
-    console.log('Calling Kontext Dev model for precise editing...');
-    
-    const result = await fal.subscribe("fal-ai/flux-kontext/dev", {
-      input: {
-        prompt: prompt,
-        image_url: imageUrl,
-        guidance_scale: options?.guidance_scale ?? 4.5,
-        num_images: options?.num_images ?? 1,
-        sync_mode: true,
-        safety_tolerance: options?.safety_tolerance ?? "1",
-        output_format: options?.output_format ?? "jpeg",
-        ...(options?.aspect_ratio && { aspect_ratio: options.aspect_ratio }),
-        ...(options?.seed && { seed: options.seed }),
-      },
-      logs: true,
-    }) as FalResponse;
-
-    console.log('Fal AI response:', result);
-
-    // 处理不同的响应格式
-    let images: FalImageResult[] = [];
-    
-    if (result.images && Array.isArray(result.images)) {
-      images = result.images;
-    } else if (result.image) {
-      images = [result.image];
-    } else if (result.data?.images && Array.isArray(result.data.images)) {
-      images = result.data.images;
-    } else if (result.data?.image) {
-      images = [result.data.image];
-    } else {
-      const errorMessage = await getErrorMessage('invalidImageData', options?.locale);
-      throw new Error(errorMessage);
-    }
-
-    return {
-      success: true,
-      data: {
-        images: images,
-        model_used: 'flux-kontext-dev-precise',
-        prompt_used: prompt,
-        parameters: {
-          guidance_scale: options?.guidance_scale ?? 4.5,
-          aspect_ratio: options?.aspect_ratio,
-          output_format: options?.output_format ?? "jpeg",
-        }
-      }
-    };
-  } catch (error) {
-    console.error('Precise image edit error:', error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : await getErrorMessage('unknownError', options?.locale)
-    };
-  }
+  return await editImage(imageUrl, prompt, options);
 }
 
-// 创意图像编辑（用于大幅度变换）
 export async function creativeImageEdit(imageUrl: string, prompt: string, options?: {
-  guidance_scale?: number;
   num_images?: number;
-  aspect_ratio?: AspectRatio;
   output_format?: "jpeg" | "png";
-  seed?: number;
-  safety_tolerance?: "1" | "2" | "3" | "4" | "5" | "6";
   locale?: string;
 }) {
-  try {
-    console.log('Calling Kontext Dev model for creative editing...');
-    
-    const result = await fal.subscribe("fal-ai/flux-kontext/dev", {
-      input: {
-        prompt: prompt,
-        image_url: imageUrl,
-        guidance_scale: options?.guidance_scale ?? 2.5,
-        num_images: options?.num_images ?? 1,
-        sync_mode: true,
-        safety_tolerance: options?.safety_tolerance ?? "3",
-        output_format: options?.output_format ?? "jpeg",
-        ...(options?.aspect_ratio && { aspect_ratio: options.aspect_ratio }),
-        ...(options?.seed && { seed: options.seed }),
-      },
-      logs: true,
-    }) as FalResponse;
-
-    console.log('Fal AI response:', result);
-
-    // 处理不同的响应格式
-    let images: FalImageResult[] = [];
-    
-    if (result.images && Array.isArray(result.images)) {
-      images = result.images;
-    } else if (result.image) {
-      images = [result.image];
-    } else if (result.data?.images && Array.isArray(result.data.images)) {
-      images = result.data.images;
-    } else if (result.data?.image) {
-      images = [result.data.image];
-    } else {
-      const errorMessage = await getErrorMessage('invalidImageData', options?.locale);
-      throw new Error(errorMessage);
-    }
-
-    return {
-      success: true,
-      data: {
-        images: images,
-        model_used: 'flux-kontext-dev-creative',
-        prompt_used: prompt,
-        parameters: {
-          guidance_scale: options?.guidance_scale ?? 2.5,
-          aspect_ratio: options?.aspect_ratio,
-          output_format: options?.output_format ?? "jpeg",
-        }
-      }
-    };
-  } catch (error) {
-    console.error('Creative image edit error:', error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : await getErrorMessage('unknownError', options?.locale)
-    };
-  }
+  return await editImage(imageUrl, prompt, options);
 }
 
-// 通用编辑函数（保持与interactive-demo的兼容性）
-export async function editImage(imageUrl: string, prompt: string, locale?: string) {
-  return await smartImageEdit(imageUrl, prompt, { locale });
-}
 
-// 背景移除功能（使用Kontext Dev实现）
+// 背景移除功能
 export async function removeBackground(imageUrl: string, options?: {
-  aspect_ratio?: AspectRatio;
   output_format?: "jpeg" | "png";
-  seed?: number;
-  safety_tolerance?: "1" | "2" | "3" | "4" | "5" | "6";
   locale?: string;
 }) {
-  try {
-    console.log('Calling Kontext Dev model for background removal...');
-    
-    const result = await fal.subscribe("fal-ai/flux-kontext/dev", {
-      input: {
-        prompt: "remove background, transparent background, clean cutout",
-        image_url: imageUrl,
-        guidance_scale: 4.0,
-        num_images: 1,
-        sync_mode: true,
-        safety_tolerance: options?.safety_tolerance ?? "1",
-        output_format: options?.output_format ?? "png",
-        ...(options?.aspect_ratio && { aspect_ratio: options.aspect_ratio }),
-        ...(options?.seed && { seed: options.seed }),
-      },
-      logs: true,
-    }) as FalResponse;
-
-    console.log('Fal AI response:', result);
-
-    // 处理不同的响应格式
-    let images: FalImageResult[] = [];
-    
-    if (result.images && Array.isArray(result.images)) {
-      images = result.images;
-    } else if (result.image) {
-      images = [result.image];
-    } else if (result.data?.images && Array.isArray(result.data.images)) {
-      images = result.data.images;
-    } else if (result.data?.image) {
-      images = [result.data.image];
-    } else {
-      const errorMessage = await getErrorMessage('invalidImageData', options?.locale);
-      throw new Error(errorMessage);
-    }
-
-    return {
-      success: true,
-      data: {
-        images: images,
-        model_used: 'flux-kontext-dev-background-removal',
-        parameters: {
-          aspect_ratio: options?.aspect_ratio,
-          output_format: options?.output_format ?? "png",
-        }
-      }
-    };
-  } catch (error) {
-    console.error('Remove background error:', error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : await getErrorMessage('unknownError', options?.locale)
-    };
-  }
+  return await editImage(imageUrl, "remove background, transparent background, clean cutout", {
+    output_format: options?.output_format ?? "png",
+    locale: options?.locale
+  });
 }
 
-// 多图像处理 - 使用 Kontext Max Multi 模型
+// 多图像处理 - 使用 Nano Banana Edit 模型
 export async function multiImageEdit(imageUrls: string[], prompt: string, options?: {
-  guidance_scale?: number;
   num_images?: number;
-  sync_mode?: boolean;
-  aspect_ratio?: AspectRatio;
   output_format?: "jpeg" | "png";
-  seed?: number;
-  safety_tolerance?: "1" | "2" | "3" | "4" | "5" | "6";
-  batch_size?: number;
   locale?: string;
 }) {
   try {
-    console.log('Calling Kontext Max Multi model for multi-image editing...');
+    console.log('Calling Nano Banana Edit model for multi-image editing...');
     console.log('Input image count:', imageUrls.length);
     
-    const result = await fal.subscribe("fal-ai/flux-pro/kontext/max/multi", {
+    // Nano Banana supports 1-2 images, so we'll limit the input
+    const limitedImageUrls = imageUrls.slice(0, 2);
+    
+    const result = await fal.subscribe("fal-ai/nano-banana/edit", {
       input: {
         prompt: prompt,
-        image_urls: imageUrls,
-        guidance_scale: options?.guidance_scale ?? 3.5,
-        num_images: options?.num_images ?? imageUrls.length,
-        sync_mode: options?.sync_mode ?? true,
-        safety_tolerance: options?.safety_tolerance ?? "2",
+        image_urls: limitedImageUrls,
+        num_images: Math.min(options?.num_images ?? limitedImageUrls.length, 4),
         output_format: options?.output_format ?? "jpeg",
-        batch_size: options?.batch_size ?? Math.min(imageUrls.length, 4), // Limit batch size
-        ...(options?.aspect_ratio && { aspect_ratio: options.aspect_ratio }),
-        ...(options?.seed && { seed: options.seed }),
       },
       logs: true,
       onQueueUpdate: (update) => {
@@ -396,7 +194,6 @@ export async function multiImageEdit(imageUrls: string[], prompt: string, option
 
     console.log('Fal AI Multi response:', result);
     
-    // Handle multi-image response format
     let images: FalImageResult[] = [];
     
     if (result.images && Array.isArray(result.images)) {
@@ -422,15 +219,14 @@ export async function multiImageEdit(imageUrls: string[], prompt: string, option
       success: true,
       data: {
         images: images,
-        model_used: 'flux-pro-kontext-max-multi',
+        model_used: 'nano-banana-edit-multi',
         prompt_used: prompt,
-        input_count: imageUrls.length,
+        description: result.description || result.data?.description,
+        input_count: limitedImageUrls.length,
         output_count: images.length,
         parameters: {
-          guidance_scale: options?.guidance_scale ?? 3.5,
-          aspect_ratio: options?.aspect_ratio,
           output_format: options?.output_format ?? "jpeg",
-          batch_size: options?.batch_size ?? Math.min(imageUrls.length, 4),
+          num_images: Math.min(options?.num_images ?? limitedImageUrls.length, 4),
         }
       }
     };
@@ -445,17 +241,14 @@ export async function multiImageEdit(imageUrls: string[], prompt: string, option
 
 // Batch image processing (for handling large numbers of images in batches)
 export async function batchImageEdit(imageUrls: string[], prompt: string, options?: {
-  guidance_scale?: number;
-  aspect_ratio?: AspectRatio;
   output_format?: "jpeg" | "png";
-  seed?: number;
-  safety_tolerance?: "1" | "2" | "3" | "4" | "5" | "6";
   batch_size?: number;
   max_concurrent?: number;
   locale?: string;
 }) {
   try {
-    const batchSize = options?.batch_size ?? 4;
+    // Nano Banana只支持1-2张图片，所以调整batch size
+    const batchSize = Math.min(options?.batch_size ?? 2, 2);
     const maxConcurrent = options?.max_concurrent ?? 2;
     const batches: string[][] = [];
     
@@ -476,8 +269,8 @@ export async function batchImageEdit(imageUrls: string[], prompt: string, option
       const batchPromises = currentBatches.map(async (batch, batchIndex) => {
         try {
           const result = await multiImageEdit(batch, prompt, {
-            ...options,
-            batch_size: batch.length,
+            output_format: options?.output_format,
+            locale: options?.locale
           });
           
           if (result.success && result.data?.images) {
@@ -505,15 +298,13 @@ export async function batchImageEdit(imageUrls: string[], prompt: string, option
       success: allResults.length > 0,
       data: {
         images: allResults,
-        model_used: 'flux-pro-kontext-max-multi-batch',
+        model_used: 'nano-banana-edit-batch',
         prompt_used: prompt,
         input_count: imageUrls.length,
         output_count: allResults.length,
         batch_count: batches.length,
         errors: errors.length > 0 ? errors : undefined,
         parameters: {
-          guidance_scale: options?.guidance_scale ?? 3.5,
-          aspect_ratio: options?.aspect_ratio,
           output_format: options?.output_format ?? "jpeg",
           batch_size: batchSize,
           max_concurrent: maxConcurrent,

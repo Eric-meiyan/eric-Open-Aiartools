@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { GithubIcon, GlobeIcon } from "lucide-react"
+import { GithubIcon, GlobeIcon, MessageCircle } from "lucide-react"
 import Link from "next/link"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
@@ -82,6 +82,12 @@ export default function Footer({ locale }: FooterProps) {
                 <Link href={`/${locale}/blog/contact-us`} className="hover:text-foreground transition-colors">
                   {t("support.contact")}
                 </Link>
+              </li>
+              <li>
+                <div className="flex items-center space-x-2 hover:text-foreground transition-colors">
+                  <MessageCircle className="w-4 h-4" />
+                  <span>{t("support.wechat")}: ericmeiyan</span>
+                </div>
               </li>
               <li>
                 <Link href={`/${locale}/terms`} className="hover:text-foreground transition-colors">

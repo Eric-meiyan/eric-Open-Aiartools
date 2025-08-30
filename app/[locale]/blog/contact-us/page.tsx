@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ArrowLeftIcon, CalendarIcon, ClockIcon, TagIcon, MailIcon } from "lucide-react"
+import { ArrowLeftIcon, CalendarIcon, ClockIcon, TagIcon, MailIcon, MessageCircle } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import Navigation from "@/components/navigation"
@@ -86,6 +86,9 @@ export default async function ContactUs({ params }: BlogPostProps) {
         socialMediaTitle: "Social Media",
         socialMediaText:
           "Follow us on social media to stay updated with the latest news, features, and tips. You can also send us direct messages on these platforms:",
+        wechatTitle: "WeChat",
+        wechatText: "Contact us via WeChat for instant support and updates:",
+        wechatId: "ericmeiyan",
         businessInquiries: "Business Inquiry",
         businessText:
           "For partnership opportunities, enterprise plans, or media inquiries, please email us with the subject line 'Business Inquiry' at eric.wuyu1352@gmail.com.",
@@ -131,6 +134,9 @@ export default async function ContactUs({ params }: BlogPostProps) {
         emailAddress: "eric.wuyu1352@gmail.com",
         socialMediaTitle: "社交媒体",
         socialMediaText: "在社交媒体上关注我们，了解最新消息、功能和提示。您也可以在这些平台上向我们发送直接消息：",
+        wechatTitle: "微信",
+        wechatText: "通过微信联系我们，获得即时支持和更新：",
+        wechatId: "ericmeiyan",
         businessInquiries: "商务咨询",
         businessText: "对于合作机会、企业计划或媒体咨询，请发送电子邮件至eric.wuyu1352@gmail.com，主题为'商务咨询'。",
         feedbackTitle: "反馈和功能请求",
@@ -224,6 +230,20 @@ export default async function ContactUs({ params }: BlogPostProps) {
                     </div>
                   </div>
 
+                  {/* WeChat */}
+                  <div className="bg-muted/30 p-6 rounded-lg mb-6">
+                    <h3 className="text-xl font-medium mb-3 flex items-center">
+                      <MessageCircle className="w-5 h-5 mr-2 text-primary" />
+                      {t("wechatTitle")}
+                    </h3>
+                    <p className="text-muted-foreground mb-4">{t("wechatText")}</p>
+                    <div className="bg-background p-4 rounded-md flex items-center justify-between">
+                      <span className="font-medium">{t("wechatId")}</span>
+                      <CopyButton text={t("wechatId")}>
+                        Copy
+                      </CopyButton>
+                    </div>
+                  </div>
 
                 </section>
 

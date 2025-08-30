@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { smartImageEdit, preciseImageEdit, creativeImageEdit, removeBackground, type AspectRatio } from '@/lib/fal-client';
+import { smartImageEdit, preciseImageEdit, creativeImageEdit, removeBackground } from '@/lib/fal-client';
 import { auth } from '@/lib/auth';
 import { deductCredits } from '@/lib/credit-service';
 import { db } from '@/lib/db';
@@ -97,9 +97,8 @@ export async function POST(request: NextRequest) {
     const file = formData.get('image') as File;
     const prompt = formData.get('prompt') as string;
     const action = (formData.get('action') as string) || 'smart';
-    const guidanceScale = formData.get('guidance_scale') ? parseFloat(formData.get('guidance_scale') as string) : undefined;
-    const strength = formData.get('strength') ? parseFloat(formData.get('strength') as string) : undefined;
-    const aspectRatio = formData.get('aspect_ratio') as AspectRatio | null;
+    const numImages = formData.get('num_images') ? parseInt(formData.get('num_images') as string) : 1;
+    const outputFormat = formData.get('output_format') as 'jpeg' | 'png' || 'jpeg';
 
     if (!file) {
       return NextResponse.json(
@@ -135,7 +134,8 @@ export async function POST(request: NextRequest) {
       case 'remove_background':
       case 'remove-background':
         result = await removeBackground(imageDataUrl, {
-          aspect_ratio: aspectRatio || undefined,
+          output_format: outputFormat,
+          locale: locale,
         });
         break;
       
@@ -147,8 +147,9 @@ export async function POST(request: NextRequest) {
           );
         }
         result = await preciseImageEdit(imageDataUrl, prompt, {
-          guidance_scale: guidanceScale,
-          aspect_ratio: aspectRatio || undefined,
+          num_images: numImages,
+          output_format: outputFormat,
+          locale: locale,
         });
         break;
       
@@ -160,8 +161,9 @@ export async function POST(request: NextRequest) {
           );
         }
         result = await creativeImageEdit(imageDataUrl, prompt, {
-          guidance_scale: guidanceScale,
-          aspect_ratio: aspectRatio || undefined,
+          num_images: numImages,
+          output_format: outputFormat,
+          locale: locale,
         });
         break;
       
@@ -175,9 +177,9 @@ export async function POST(request: NextRequest) {
           );
         }
         result = await smartImageEdit(imageDataUrl, prompt, {
-          guidance_scale: guidanceScale,
-          sync_mode: true,
-          aspect_ratio: aspectRatio || undefined,
+          num_images: numImages,
+          output_format: outputFormat,
+          locale: locale,
         });
         break;
     }
@@ -193,7 +195,8 @@ export async function POST(request: NextRequest) {
           prompt: prompt,
           file_size: file.size,
           file_type: file.type,
-          aspect_ratio: aspectRatio,
+          num_images: numImages,
+          output_format: outputFormat,
           type: 'image_edit',
         }
       );
@@ -246,10 +249,10 @@ export async function GET() {
     supported_formats: ['JPG', 'JPEG', 'PNG', 'WebP', 'AVIF'],
     max_file_size: '5MB',
     models: {
-      smart: 'flux-kontext-dev',
-      precise: 'flux-kontext-dev',
-      creative: 'flux-kontext-dev',
-      remove_background: 'flux-kontext-dev'
+      smart: 'nano-banana-edit',
+      precise: 'nano-banana-edit', 
+      creative: 'nano-banana-edit',
+      remove_background: 'nano-banana-edit'
     },
     credit_cost: `${CREDIT_CONFIG.COSTS.IMAGE_EDIT} credits per edit`
   });
