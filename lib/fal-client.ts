@@ -57,35 +57,36 @@ fal.config({
   credentials: process.env.FAL_KEY,
 });
 
-// 图像编辑 - 使用 Nano Banana Edit 模型
-export async function editImage(imageUrl: string, prompt: string, options?: {
+// 文生图 - 使用 Nano Banana Pro 模型
+export async function textToImage(prompt: string, options?: {
   num_images?: number;
+  aspect_ratio?: AspectRatio;
   output_format?: "jpeg" | "png";
   locale?: string;
 }) {
   try {
-    console.log('Calling Nano Banana Edit model...');
-    
-    const result = await fal.subscribe("fal-ai/nano-banana/edit", {
+    console.log('Calling Nano Banana Pro model for text-to-image...');
+
+    const result = await fal.subscribe("fal-ai/nano-banana-pro", {
       input: {
         prompt: prompt,
-        image_urls: [imageUrl],
         num_images: options?.num_images ?? 1,
+        aspect_ratio: options?.aspect_ratio ?? "1:1",
         output_format: options?.output_format ?? "jpeg",
       },
       logs: true,
       onQueueUpdate: (update) => {
         if (update.status === "IN_PROGRESS") {
-          console.log("Processing...", update.logs);
+          console.log("Generating image...", update.logs);
         }
       },
     }) as FalResponse;
 
-    console.log('Fal AI response:', result);
-    
+    console.log('Fal AI text-to-image response:', result);
+
     // 处理响应格式
     let images: FalImageResult[] = [];
-    
+
     if (result.images && Array.isArray(result.images)) {
       images = result.images;
     } else if (result.image) {
@@ -109,7 +110,78 @@ export async function editImage(imageUrl: string, prompt: string, options?: {
       success: true,
       data: {
         images: images,
-        model_used: 'nano-banana-edit',
+        model_used: 'nano-banana-pro',
+        prompt_used: prompt,
+        description: result.description || result.data?.description,
+        parameters: {
+          output_format: options?.output_format ?? "jpeg",
+          num_images: options?.num_images ?? 1,
+          aspect_ratio: options?.aspect_ratio ?? "1:1",
+        }
+      }
+    };
+  } catch (error) {
+    console.error('Text-to-image error:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : await getErrorMessage('unknownError', options?.locale)
+    };
+  }
+}
+
+// 图像编辑 - 使用 Nano Banana Pro Edit 模型
+export async function editImage(imageUrl: string, prompt: string, options?: {
+  num_images?: number;
+  output_format?: "jpeg" | "png";
+  locale?: string;
+}) {
+  try {
+    console.log('Calling Nano Banana Edit model...');
+
+    const result = await fal.subscribe("fal-ai/nano-banana-pro/edit", {
+      input: {
+        prompt: prompt,
+        image_urls: [imageUrl],
+        num_images: options?.num_images ?? 1,
+        output_format: options?.output_format ?? "jpeg",
+      },
+      logs: true,
+      onQueueUpdate: (update) => {
+        if (update.status === "IN_PROGRESS") {
+          console.log("Processing...", update.logs);
+        }
+      },
+    }) as FalResponse;
+
+    console.log('Fal AI response:', result);
+
+    // 处理响应格式
+    let images: FalImageResult[] = [];
+
+    if (result.images && Array.isArray(result.images)) {
+      images = result.images;
+    } else if (result.image) {
+      images = [result.image];
+    } else if (result.data?.images && Array.isArray(result.data.images)) {
+      images = result.data.images;
+    } else if (result.data?.image) {
+      images = [result.data.image];
+    } else {
+      console.error('Image data not found:', result);
+      const errorMessage = await getErrorMessage('invalidImageData', options?.locale);
+      throw new Error(errorMessage);
+    }
+
+    if (images.length === 0) {
+      const errorMessage = await getErrorMessage('noImagesReturned', options?.locale);
+      throw new Error(errorMessage);
+    }
+
+    return {
+      success: true,
+      data: {
+        images: images,
+        model_used: 'nano-banana-pro-edit',
         prompt_used: prompt,
         description: result.description || result.data?.description,
         parameters: {
@@ -173,11 +245,11 @@ export async function multiImageEdit(imageUrls: string[], prompt: string, option
   try {
     console.log('Calling Nano Banana Edit model for multi-image editing...');
     console.log('Input image count:', imageUrls.length);
-    
+
     // Nano Banana supports 1-2 images, so we'll limit the input
     const limitedImageUrls = imageUrls.slice(0, 2);
-    
-    const result = await fal.subscribe("fal-ai/nano-banana/edit", {
+
+    const result = await fal.subscribe("fal-ai/nano-banana-pro/edit", {
       input: {
         prompt: prompt,
         image_urls: limitedImageUrls,
@@ -193,9 +265,9 @@ export async function multiImageEdit(imageUrls: string[], prompt: string, option
     }) as FalResponse;
 
     console.log('Fal AI Multi response:', result);
-    
+
     let images: FalImageResult[] = [];
-    
+
     if (result.images && Array.isArray(result.images)) {
       images = result.images;
     } else if (result.data?.images && Array.isArray(result.data.images)) {
@@ -219,7 +291,7 @@ export async function multiImageEdit(imageUrls: string[], prompt: string, option
       success: true,
       data: {
         images: images,
-        model_used: 'nano-banana-edit-multi',
+        model_used: 'nano-banana-pro-edit-multi',
         prompt_used: prompt,
         description: result.description || result.data?.description,
         input_count: limitedImageUrls.length,
@@ -251,28 +323,28 @@ export async function batchImageEdit(imageUrls: string[], prompt: string, option
     const batchSize = Math.min(options?.batch_size ?? 2, 2);
     const maxConcurrent = options?.max_concurrent ?? 2;
     const batches: string[][] = [];
-    
+
     // Split images into batches
     for (let i = 0; i < imageUrls.length; i += batchSize) {
       batches.push(imageUrls.slice(i, i + batchSize));
     }
-    
+
     console.log(`Batch processing: ${imageUrls.length} images split into ${batches.length} batches`);
-    
+
     const allResults: FalImageResult[] = [];
     const errors: string[] = [];
-    
+
     // Process batches concurrently
     for (let i = 0; i < batches.length; i += maxConcurrent) {
       const currentBatches = batches.slice(i, i + maxConcurrent);
-      
+
       const batchPromises = currentBatches.map(async (batch, batchIndex) => {
         try {
           const result = await multiImageEdit(batch, prompt, {
             output_format: options?.output_format,
             locale: options?.locale
           });
-          
+
           if (result.success && result.data?.images) {
             return result.data.images;
           } else {
@@ -287,18 +359,18 @@ export async function batchImageEdit(imageUrls: string[], prompt: string, option
           return [];
         }
       });
-      
+
       const batchResults = await Promise.all(batchPromises);
       batchResults.forEach(images => allResults.push(...images));
     }
-    
+
     const batchFailedMessage = await getErrorMessage('batchProcessingFailed', options?.locale);
-    
+
     return {
       success: allResults.length > 0,
       data: {
         images: allResults,
-        model_used: 'nano-banana-edit-batch',
+        model_used: 'nano-banana-pro-edit-batch',
         prompt_used: prompt,
         input_count: imageUrls.length,
         output_count: allResults.length,

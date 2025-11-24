@@ -81,6 +81,10 @@
     "generateSuccess": "图片生成成功！",
     "insufficientCredits": "积分不足，请充值后再试",
     "insufficientCreditsDesc": "您的积分不足以完成此操作，请充值或升级账户",
+    "text2imgEdit": "文生图片",
+    "text2imgDescription": "输入描述生成图片",
+    "text2imgPromptPlaceholder": "描述您想要生成的图片，例如：'一只可爱的猫咪在花园里' 或 '夕阳下的海滩'",
+    "text2imgCreditCost": "每次生成消耗10积分",
     "singleImageEdit": "单图编辑",
     "multiImageEdit": "多图编辑",
     "uploadMultiImages": "上传图片",
@@ -118,14 +122,14 @@
     "noImagesGenerated": "没有生成任何图片",
     "presetKeywords": {
       "retro": "复古风格",
-      "cyberpunk": "赛博朋克风格", 
+      "cyberpunk": "赛博朋克风格",
       "anime": "动漫风格",
       "removeBackground": "移除背景",
       "colorizeOldPhoto": "老照片上色"
     },
     "presetPrompts": {
       "retro": "Please convert the image to retro style",
-      "cyberpunk": "Please convert the image into cyberpunk style", 
+      "cyberpunk": "Please convert the image into cyberpunk style",
       "anime": "Please convert the image into anime style",
       "removeBackground": "Please remove image background",
       "colorizeOldPhoto": "Restore and colorize this image. Remove any scratches or imperfections."
@@ -531,7 +535,7 @@
     "networkError": "网络错误，请稍后重试",
     "activityTypes": {
       "credit_deduct": "积分扣除",
-      "credit_add": "积分增加", 
+      "credit_add": "积分增加",
       "image_generation": "图片生成",
       "login": "账户登录",
       "registration_bonus": "注册赠送",

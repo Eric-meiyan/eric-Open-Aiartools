@@ -88,7 +88,7 @@ const MAX_FILES = 2 // Nano Banana模型最多支持2张图片
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 
 export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
-  const [editMode, setEditMode] = useState<'single' | 'multi'>('single')
+  const [editMode, setEditMode] = useState<'text2img' | 'single' | 'multi'>('text2img')
   const [prompt, setPrompt] = useState("")
   const [isProcessing, setIsProcessing] = useState(false)
   const [uploadedImage, setUploadedImage] = useState<string | null>(null)
@@ -101,6 +101,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
   const [error, setError] = useState<string | null>(null)
   const [outputFormat, setOutputFormat] = useState<'jpeg' | 'png'>('jpeg')
   const [numImages, setNumImages] = useState<number>(1)
+  const [aspectRatio, setAspectRatio] = useState<string>('1:1')
   const { user, isLoading, refreshUser } = useAuth()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const multiFileInputRef = useRef<HTMLInputElement>(null)
@@ -193,7 +194,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
       handleLoginRequired("upload")
       return
     }
-    
+
     // 如果已登录，触发文件选择
     fileInputRef.current?.click()
   }
@@ -205,7 +206,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
       handleLoginRequired("upload")
       return
     }
-    
+
     // 如果已登录，触发文件选择
     multiFileInputRef.current?.click()
   }
@@ -227,7 +228,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
 
       setError(null)
       setUploadedFile(file)
-      
+
       const reader = new FileReader()
       reader.onload = (e) => {
         setUploadedImage(e.target?.result as string)
@@ -238,7 +239,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
 
   const handleMultiImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || [])
-    
+
     if (files.length === 0) return
 
     // 检查文件数量 - Nano Banana最多支持2张图片
@@ -316,6 +317,8 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
       return
     }
 
+    // text2img模式不需要上传文件
+
     // 检查用户积分
     const hasCredits = await checkUserCredits()
     if (!hasCredits) {
@@ -324,8 +327,8 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
 
     setIsProcessing(true)
     setError(null)
-    
-    if (editMode === 'single') {
+
+    if (editMode === 'single' || editMode === 'text2img') {
       setGeneratedImage(null)
     } else {
       setGeneratedImages([])
@@ -334,7 +337,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
     try {
       // 静默翻译提示词为英文（用户不会感知到这个过程）
       let translatedPrompt = prompt.trim();
-      
+
       try {
         const translateResponse = await fetch('/api/translate', {
           method: 'POST',
@@ -362,22 +365,75 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
         console.warn('翻译服务错误，使用原始提示词:', translateError);
       }
 
-      if (editMode === 'single') {
+      if (editMode === 'text2img') {
+        // 文生图处理逻辑
+        const formData = new FormData()
+        formData.append('prompt', translatedPrompt)
+        formData.append('locale', locale)
+        formData.append('output_format', outputFormat)
+        formData.append('aspect_ratio', aspectRatio)
+
+        if (numImages > 1) {
+          formData.append('num_images', numImages.toString())
+        }
+
+        console.log(tLogs('sendingRequest'))
+
+        const response = await fetch('/api/text-to-image', {
+          method: 'POST',
+          body: formData,
+        })
+
+        console.log(tLogs('receivedResponse'), response.status)
+
+        const result: ApiResponse = await response.json()
+        console.log(tLogs('apiResponseData'), result)
+
+        if (!response.ok) {
+          throw new Error(result.error || tError('processingFailed'))
+        }
+
+        if (result.success && result.data?.images && result.data.images.length > 0) {
+          // 根据生成数量决定存储方式
+          if (numImages === 1) {
+            // 单图：使用 generatedImage
+            setGeneratedImage(result.data.images[0].url)
+          } else {
+            // 多图：使用 generatedImages 数组
+            const imageUrls = result.data.images.map(img => img.url).filter(Boolean)
+            setGeneratedImages(imageUrls)
+          }
+
+          // 如果有积分信息，更新用户信息
+          if (result.credits && result.credits.deducted && result.credits.remaining !== undefined) {
+            // 重新获取用户信息以确保积分数据正确
+            await refreshUser();
+
+            // 显示积分扣除提示
+            toast({
+              title: t("generateSuccess"),
+              description: t("creditsUsed", { used: result.credits.deducted, remaining: result.credits.remaining }),
+            })
+          }
+        } else {
+          throw new Error(tError('noImagesGenerated'))
+        }
+      } else if (editMode === 'single') {
         // 单图处理逻辑
         const formData = new FormData()
         formData.append('image', uploadedFile!)
         formData.append('prompt', translatedPrompt)
         formData.append('locale', locale)
         formData.append('output_format', outputFormat)
-        
+
         if (numImages > 1) {
           formData.append('num_images', numImages.toString())
         }
-        
+
         // 检查是否是背景移除操作
-        const isRemoveBackground = translatedPrompt.toLowerCase().includes('remove background') || 
-                                  translatedPrompt.toLowerCase().includes('移除背景')
-        
+        const isRemoveBackground = translatedPrompt.toLowerCase().includes('remove background') ||
+          translatedPrompt.toLowerCase().includes('移除背景')
+
         if (isRemoveBackground) {
           formData.append('action', 'remove_background')
         } else {
@@ -385,7 +441,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
         }
 
         console.log(tLogs('sendingRequest'))
-        
+
         const response = await fetch('/api/edit-image', {
           method: 'POST',
           body: formData,
@@ -393,7 +449,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
         })
 
         console.log(tLogs('receivedResponse'), response.status)
-        
+
         const result: ApiResponse = await response.json()
         console.log(tLogs('apiResponseData'), result)
 
@@ -424,13 +480,22 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
         }
 
         console.log(tLogs('successImageUrl'), firstImage.url)
-        setGeneratedImage(firstImage.url)
+
+        // 根据生成数量决定存储方式
+        if (numImages === 1) {
+          // 单图：使用 generatedImage
+          setGeneratedImage(firstImage.url)
+        } else {
+          // 多图：使用 generatedImages 数组
+          const imageUrls = result.data.images.map(img => img.url).filter(Boolean)
+          setGeneratedImages(imageUrls)
+        }
 
         // 更新用户积分（如果响应中包含积分信息）
         if (result.credits && result.credits.deducted && result.credits.remaining !== undefined) {
           // 重新获取用户信息以确保积分数据正确
           await refreshUser();
-          
+
           // 显示积分扣除提示
           toast({
             title: t("generateSuccess"),
@@ -441,22 +506,22 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
       } else {
         // 多图处理逻辑
         const formData = new FormData()
-        
+
         // 添加所有图片文件
         uploadedFiles.forEach(file => {
           formData.append('images', file)
         })
-        
+
         formData.append('prompt', translatedPrompt)
         formData.append('locale', locale)
         formData.append('output_format', outputFormat)
-        
+
         if (numImages > 1) {
           formData.append('num_images', numImages.toString())
         }
 
         console.log(tLogs('sendingRequest'))
-        
+
         const response = await fetch('/api/edit-multi-images', {
           method: 'POST',
           body: formData,
@@ -464,7 +529,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
         })
 
         console.log(tLogs('receivedResponse'), response.status)
-        
+
         const result: MultiImageApiResponse = await response.json()
         console.log(tLogs('apiResponseData'), result)
 
@@ -497,7 +562,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
         if (result.credits && result.credits.used && result.credits.remaining !== undefined) {
           // 重新获取用户信息以确保积分数据正确
           await refreshUser();
-          
+
           // 显示积分扣除提示
           toast({
             title: t("editSuccess"),
@@ -509,10 +574,10 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
 
     } catch (error) {
       console.error(tError('processingError'), error)
-      
+
       // 提供更详细的错误信息
       let errorMessage = tError('processingFailed')
-      
+
       if (error instanceof Error) {
         if (error.message.includes('Failed to fetch')) {
           errorMessage = tError('networkFailed')
@@ -526,7 +591,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
           errorMessage = error.message
         }
       }
-      
+
       setError(errorMessage)
     } finally {
       setIsProcessing(false)
@@ -540,14 +605,14 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
       const response = await fetch(generatedImage)
       const blob = await response.blob()
       const url = window.URL.createObjectURL(blob)
-      
+
       const link = document.createElement('a')
       link.href = url
       link.download = `aiartools-generated-${Date.now()}.png`
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-      
+
       window.URL.revokeObjectURL(url)
 
       // 显示成功消息
@@ -567,14 +632,14 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
       const response = await fetch(imageUrl)
       const blob = await response.blob()
       const url = window.URL.createObjectURL(blob)
-      
+
       const link = document.createElement('a')
       link.href = url
       link.download = `aiartools-multi-${index + 1}-${Date.now()}.png`
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-      
+
       window.URL.revokeObjectURL(url)
 
       toast({
@@ -610,8 +675,12 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
         <div className="max-w-6xl mx-auto">
           {/* 编辑模式切换 */}
           <div className="mb-8">
-            <Tabs value={editMode} onValueChange={(value) => setEditMode(value as 'single' | 'multi')} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
+            <Tabs value={editMode} onValueChange={(value) => setEditMode(value as 'text2img' | 'single' | 'multi')} className="w-full">
+              <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
+                <TabsTrigger value="text2img" className="flex items-center gap-2">
+                  <SparklesIcon className="w-4 h-4" />
+                  {t("text2imgEdit")}
+                </TabsTrigger>
                 <TabsTrigger value="single" className="flex items-center gap-2">
                   <ImageIcon className="w-4 h-4" />
                   {t("singleImageEdit")}
@@ -649,119 +718,121 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                 </Card>
               )}
 
-              {/* Image Upload */}
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4">
-                    {editMode === 'single' ? t("uploadImage") : `${t("uploadMultiImages")} (最多${MAX_FILES}张)`}
-                  </h3>
-                  
-                  {editMode === 'single' ? (
-                    // 单图上传
-                    <div 
-                      onClick={handleUploadClick}
-                      className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer min-h-[200px] flex items-center justify-center"
-                    >
-                      <input
-                        ref={fileInputRef}
-                        type="file"
-                        accept=".jpg,.jpeg,.png,.webp,.avif"
-                        onChange={handleImageUpload}
-                        className="hidden"
-                        id="image-upload"
-                      />
-                      
-                      {uploadedImage ? (
-                        // 显示已上传的图片
-                        <div className="relative w-full h-full flex items-center justify-center">
-                          <Image
-                            src={uploadedImage}
-                            alt="Uploaded image"
-                            width={0}
-                            height={0}
-                            sizes="100vw"
-                            className="rounded-lg w-auto h-auto max-w-full max-h-[300px] object-contain"
-                          />
-                          <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all duration-200 rounded-lg flex items-center justify-center">
-                            <p className="text-white text-sm opacity-0 hover:opacity-100 transition-opacity bg-black bg-opacity-75 px-3 py-1 rounded">
-                              {t("clickToChangeImage") || "点击更换图片"}
-                            </p>
-                          </div>
-                        </div>
-                      ) : (
-                        // 显示上传提示
-                        <div>
-                          <UploadIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                          <p className="text-muted-foreground">{t("dragDropOrClick")}</p>
-                          <p className="text-sm text-muted-foreground/75 mt-2">{t("fileFormatsSupported")}</p>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    // 多图上传
-                    <div className="space-y-4">
-                      <div 
-                        onClick={handleMultiUploadClick}
-                        className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer min-h-[150px] flex items-center justify-center"
+              {/* Image Upload - 文生图模式不显示 */}
+              {editMode !== 'text2img' && (
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-4">
+                      {editMode === 'single' ? t("uploadImage") : `${t("uploadMultiImages")} (最多${MAX_FILES}张)`}
+                    </h3>
+
+                    {editMode === 'single' ? (
+                      // 单图上传
+                      <div
+                        onClick={handleUploadClick}
+                        className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer min-h-[200px] flex items-center justify-center"
                       >
                         <input
-                          ref={multiFileInputRef}
+                          ref={fileInputRef}
                           type="file"
                           accept=".jpg,.jpeg,.png,.webp,.avif"
-                          onChange={handleMultiImageUpload}
+                          onChange={handleImageUpload}
                           className="hidden"
-                          multiple
-                          id="multi-image-upload"
+                          id="image-upload"
                         />
-                        
-                        <div>
-                          <UploadIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                          <p className="text-muted-foreground">{t("dragDropMultiImages")}</p>
-                          <p className="text-sm text-muted-foreground/75 mt-2">{t("multiImageFormatsSupported")}</p>
-                        </div>
-                      </div>
 
-                      {/* 已上传文件列表 */}
-                      {uploadedFiles.length > 0 && (
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium">{t("uploadedImagesCount", { count: uploadedFiles.length })}</span>
-                            <Button variant="outline" size="sm" onClick={clearMultiImages}>
-                              {t("clearAllImages")}
-                            </Button>
+                        {uploadedImage ? (
+                          // 显示已上传的图片
+                          <div className="relative w-full h-full flex items-center justify-center">
+                            <Image
+                              src={uploadedImage}
+                              alt="Uploaded image"
+                              width={0}
+                              height={0}
+                              sizes="100vw"
+                              className="rounded-lg w-auto h-auto max-w-full max-h-[300px] object-contain"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all duration-200 rounded-lg flex items-center justify-center">
+                              <p className="text-white text-sm opacity-0 hover:opacity-100 transition-opacity bg-black bg-opacity-75 px-3 py-1 rounded">
+                                {t("clickToChangeImage") || "点击更换图片"}
+                              </p>
+                            </div>
                           </div>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            {uploadedFiles.map((file, index) => (
-                              <div key={`${file.name}-${file.size}-${file.lastModified}`} className="relative group">
-                                <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-                                  <Image
-                                    src={getFileUrl(file)}
-                                    alt={`Upload ${index + 1}`}
-                                    width={150}
-                                    height={150}
-                                    className="w-full h-full object-cover"
-                                  />
-                                </div>
-                                <Button
-                                  variant="destructive"
-                                  size="sm"
-                                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                                  onClick={() => removeMultiImage(index)}
-                                >
-                                  <X className="h-3 w-3" />
-                                </Button>
-                                <p className="text-xs text-center mt-1 truncate">
-                                  {file.name}
-                                </p>
-                              </div>
-                            ))}
+                        ) : (
+                          // 显示上传提示
+                          <div>
+                            <UploadIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                            <p className="text-muted-foreground">{t("dragDropOrClick")}</p>
+                            <p className="text-sm text-muted-foreground/75 mt-2">{t("fileFormatsSupported")}</p>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      // 多图上传
+                      <div className="space-y-4">
+                        <div
+                          onClick={handleMultiUploadClick}
+                          className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer min-h-[150px] flex items-center justify-center"
+                        >
+                          <input
+                            ref={multiFileInputRef}
+                            type="file"
+                            accept=".jpg,.jpeg,.png,.webp,.avif"
+                            onChange={handleMultiImageUpload}
+                            className="hidden"
+                            multiple
+                            id="multi-image-upload"
+                          />
+
+                          <div>
+                            <UploadIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                            <p className="text-muted-foreground">{t("dragDropMultiImages")}</p>
+                            <p className="text-sm text-muted-foreground/75 mt-2">{t("multiImageFormatsSupported")}</p>
                           </div>
                         </div>
-                      )}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
+
+                        {/* 已上传文件列表 */}
+                        {uploadedFiles.length > 0 && (
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-medium">{t("uploadedImagesCount", { count: uploadedFiles.length })}</span>
+                              <Button variant="outline" size="sm" onClick={clearMultiImages}>
+                                {t("clearAllImages")}
+                              </Button>
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                              {uploadedFiles.map((file, index) => (
+                                <div key={`${file.name}-${file.size}-${file.lastModified}`} className="relative group">
+                                  <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                                    <Image
+                                      src={getFileUrl(file)}
+                                      alt={`Upload ${index + 1}`}
+                                      width={150}
+                                      height={150}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <Button
+                                    variant="destructive"
+                                    size="sm"
+                                    className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                    onClick={() => removeMultiImage(index)}
+                                  >
+                                    <X className="h-3 w-3" />
+                                  </Button>
+                                  <p className="text-xs text-center mt-1 truncate">
+                                    {file.name}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Prompt Input */}
               <Card>
@@ -770,7 +841,11 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                   <Input
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
-                    placeholder={editMode === 'single' ? t("promptPlaceholder") : t("multiImagePromptPlaceholder")}
+                    placeholder={
+                      editMode === 'text2img' ? t("text2imgPromptPlaceholder") :
+                        editMode === 'single' ? t("promptPlaceholder") :
+                          t("multiImagePromptPlaceholder")
+                    }
                     className="mb-4"
                   />
 
@@ -810,8 +885,29 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                     </Select>
                   </div>
 
-                  {/* Number of Images - 仅在单图模式下显示 */}
-                  {editMode === 'single' && (
+                  {/* Aspect Ratio - 仅在文生图模式下显示 */}
+                  {editMode === 'text2img' && (
+                    <div className="mb-4">
+                      <label className="text-sm font-medium mb-2 block">{t("aspectRatioLabel") || "图片宽高比"}</label>
+                      <Select value={aspectRatio} onValueChange={setAspectRatio}>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t("aspectRatioPlaceholder") || "选择宽高比"} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1:1">正方形 (1:1)</SelectItem>
+                          <SelectItem value="16:9">宽屏 (16:9)</SelectItem>
+                          <SelectItem value="9:16">竖屏 (9:16)</SelectItem>
+                          <SelectItem value="4:3">标准 (4:3)</SelectItem>
+                          <SelectItem value="3:4">竖版标准 (3:4)</SelectItem>
+                          <SelectItem value="21:9">超宽屏 (21:9)</SelectItem>
+                          <SelectItem value="9:21">竖版超宽 (9:21)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+
+                  {/* Number of Images - 在单图和文生图模式下显示 */}
+                  {(editMode === 'single' || editMode === 'text2img') && (
                     <div className="mb-6">
                       <label className="text-sm font-medium mb-2 block">{t("numImagesLabel") || "生成图片数量"}</label>
                       <Select value={numImages.toString()} onValueChange={(value) => setNumImages(parseInt(value))}>
@@ -838,7 +934,8 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                   {/* Generate Button */}
                   <Button
                     onClick={handleProcess}
-                    disabled={isProcessing || 
+                    disabled={isProcessing ||
+                      (editMode === 'text2img' && !prompt.trim()) ||
                       (editMode === 'single' && (!uploadedFile || !prompt.trim())) ||
                       (editMode === 'multi' && (uploadedFiles.length === 0 || !prompt.trim()))
                     }
@@ -866,9 +963,9 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
               <Card className="h-full">
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold mb-4">{t("result")}</h3>
-                  
-                  {editMode === 'single' ? (
-                    // 单图结果显示
+
+                  {(editMode === 'single' || editMode === 'text2img') ? (
+                    // 单图/文生图结果显示 - 自适应单图或多图
                     <>
                       {isProcessing ? (
                         <div className="text-center py-12">
@@ -876,12 +973,60 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                           <p className="text-muted-foreground">{t("processingImage")}</p>
                           <p className="text-sm text-muted-foreground mt-2">{t("processingTime")}</p>
                         </div>
+                      ) : generatedImages.length > 0 ? (
+                        // 多图显示（当用户选择生成多张时）
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-md font-semibold">{t("editResult")}</h4>
+                            <Button
+                              onClick={downloadAllMultiImages}
+                              variant="outline"
+                              size="sm"
+                            >
+                              <DownloadIcon className="w-4 h-4 mr-2" />
+                              下载全部
+                            </Button>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-4">
+                            {generatedImages.map((imageUrl, index) => (
+                              <div key={index} className="space-y-2">
+                                <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                                  <Image
+                                    src={imageUrl}
+                                    alt={`Result ${index + 1}`}
+                                    width={200}
+                                    height={200}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                                <Button
+                                  onClick={() => downloadMultiImage(imageUrl, index)}
+                                  variant="outline"
+                                  size="sm"
+                                  className="w-full"
+                                >
+                                  <DownloadIcon className="w-4 h-4 mr-2" />
+                                  下载图片 {index + 1}
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="flex items-start space-x-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                            <AlertTriangleIcon className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                            <p className="text-sm text-amber-800 dark:text-amber-200">
+                              {t("downloadReminder")}
+                            </p>
+                          </div>
+                        </div>
                       ) : generatedImage ? (
+                        // 单图显示
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
                             <h4 className="text-md font-semibold">{t("editResult")}</h4>
                           </div>
-                          
+
                           <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
                             <Image
                               src={generatedImage}
@@ -899,13 +1044,6 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                             <DownloadIcon className="w-4 h-4 mr-2" />
                             {t("downloadEditResult")}
                           </Button>
-                          
-                          <div className="flex items-start space-x-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
-                            <AlertTriangleIcon className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-                            <p className="text-sm text-amber-800 dark:text-amber-200">
-                              {t("downloadReminder")}
-                            </p>
-                          </div>
 
                           {showDownloadSuccess && (
                             <div className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
@@ -919,7 +1057,9 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                         <div className="text-center py-12">
                           <ImageIcon className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                           <p className="text-muted-foreground">{t("resultWillAppearHere")}</p>
-                          <p className="text-sm text-muted-foreground mt-2">{t("uploadAndDescribe")}</p>
+                          <p className="text-sm text-muted-foreground mt-2">
+                            {editMode === 'text2img' ? '输入描述开始生成' : t("uploadAndDescribe")}
+                          </p>
                         </div>
                       )}
                     </>
@@ -937,7 +1077,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                           <div className="flex items-center justify-between">
                             <h4 className="text-md font-semibold">{t("editResult")}</h4>
                           </div>
-                          
+
                           <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
                             <Image
                               src={generatedImages[0]}
@@ -955,7 +1095,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                             <DownloadIcon className="w-4 h-4 mr-2" />
                             {t("downloadEditResult")}
                           </Button>
-                          
+
                           <div className="flex items-start space-x-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
                             <AlertTriangleIcon className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                             <p className="text-sm text-amber-800 dark:text-amber-200">

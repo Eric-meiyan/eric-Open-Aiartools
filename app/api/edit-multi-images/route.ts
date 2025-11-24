@@ -102,12 +102,12 @@ function getMessage(locale: string, key: keyof typeof messages.zh): string {
 function getMessageWithParams(locale: string, key: keyof typeof messages.zh, params: Record<string, string | number>): string {
   const lang = (locale === 'zh' || locale === 'zh-CN') ? 'zh' : 'en';
   let message = messages[lang][key];
-  
+
   // 替换占位符
   Object.keys(params).forEach(paramKey => {
     message = message.replace(`{${paramKey}}`, String(params[paramKey]));
   });
-  
+
   return message;
 }
 
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
     // 解析表单数据以获取locale
     const formData = await request.formData();
     const locale = formData.get('locale') as string || 'zh';
-    
+
     // 检查用户认证
     const session = await auth();
     if (!session?.user?.email) {
@@ -190,11 +190,11 @@ export async function POST(request: NextRequest) {
 
     // 上传图片到fal.ai存储
     const imageUrls: string[] = [];
-    
+
     for (let i = 0; i < images.length; i++) {
       const image = images[i];
       console.log(`处理图片 ${i + 1}/${images.length}: ${image.name}, 大小: ${image.size} bytes, 类型: ${image.type}`);
-      
+
       // 检查文件大小
       if (image.size > USER_CONFIG.MAX_FILE_SIZE) {
         return NextResponse.json(
@@ -284,7 +284,7 @@ export async function POST(request: NextRequest) {
 
     try {
       // 调用fal.ai多图编辑API - 使用Nano Banana Edit模型
-      const result = await fal.subscribe("fal-ai/nano-banana/edit", {
+      const result = await fal.subscribe("fal-ai/nano-banana-pro/edit", {
         input: apiParams,
         logs: true,
         onQueueUpdate: (update) => {
@@ -295,7 +295,7 @@ export async function POST(request: NextRequest) {
       }) as any;
 
       console.log('fal.ai API响应:', result);
-      
+
       // 验证API响应 - fal.ai直接返回包含images的对象
       if (!result) {
         throw new Error(getMessage(locale, 'apiReturnEmpty'));
@@ -342,7 +342,7 @@ export async function POST(request: NextRequest) {
         data: {
           images: result.images,
           description: result.description,
-          model_used: 'nano-banana-edit-multi',
+          model_used: 'nano-banana-pro-edit-multi',
           input_count: images.length,
           output_count: result.images.length,
           message: `成功编辑了 ${images.length} 张图片，生成了 ${result.images.length} 张结果图片`
@@ -369,25 +369,25 @@ export async function POST(request: NextRequest) {
       if ((falError as any)?.status === 422 && (falError as any)?.body?.detail) {
         const details = (falError as any).body.detail;
         console.error('验证错误详情:', details);
-        
+
         // 构建更友好的错误消息
-        let detailMessage = getMessageWithParams(locale, 'validationFailed', { 
+        let detailMessage = getMessageWithParams(locale, 'validationFailed', {
           details: Array.isArray(details) ? details.map((d: any) => {
             if (typeof d === 'string') return d;
             if (d.msg) return `${d.loc ? d.loc.join('.') + ': ' : ''}${d.msg}`;
             return JSON.stringify(d);
           }).join(', ') : JSON.stringify(details)
         });
-        
+
         throw new Error(detailMessage);
       }
-      
+
       throw falError;
     }
 
   } catch (error) {
     console.error('多图编辑API错误:', error);
-    
+
     // 尝试从request中获取locale，如果失败则使用默认值
     let locale = 'zh';
     try {
@@ -396,10 +396,10 @@ export async function POST(request: NextRequest) {
     } catch {
       // 如果无法读取formData，使用默认语言
     }
-    
+
     let errorMessage = getMessage(locale, 'processingFailed');
     let statusCode = 500;
-    
+
     if (error instanceof Error) {
       // fal.ai API特定错误处理
       if (error.message.includes('insufficient credits') || error.message.includes('quota')) {
@@ -435,8 +435,8 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { 
-        success: false, 
+      {
+        success: false,
         error: errorMessage,
         debug: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.message : String(error)) : undefined
       },
@@ -455,6 +455,6 @@ export async function GET() {
     max_files: MAX_FILES,
     processing_modes: ['edit'],
     credit_cost: `${CREDIT_CONFIG.COSTS.MULTI_IMAGE_EDIT} credits per edit`,
-    models: ['nano-banana-edit']
+    models: ['nano-banana-pro-edit']
   });
 } 

@@ -70,7 +70,7 @@
     "networkError": "Network error, please try again",
     "activityTypes": {
       "credit_deduct": "Credit Deducted",
-      "credit_add": "Credit Added", 
+      "credit_add": "Credit Added",
       "image_generation": "Image Generated",
       "login": "Account Login",
       "registration_bonus": "Registration Bonus",
@@ -380,6 +380,10 @@
     "generateSuccess": "Image generated successfully!",
     "insufficientCredits": "Insufficient credits, please recharge and try again",
     "insufficientCreditsDesc": "You don't have enough credits to complete this operation. Please purchase more credits or upgrade your account.",
+    "text2imgEdit": "Text to Image",
+    "text2imgDescription": "Generate images from text",
+    "text2imgPromptPlaceholder": "Describe the image you want to generate, e.g., 'A cute cat in a garden' or 'Beach at sunset'",
+    "text2imgCreditCost": "10 credits per generation",
     "singleImageEdit": "Single Image Edit",
     "multiImageEdit": "Multi Image Edit",
     "uploadMultiImages": "Upload Images",
@@ -417,14 +421,14 @@
     "noImagesGenerated": "No images generated",
     "presetKeywords": {
       "retro": "Retro Style",
-      "cyberpunk": "Cyberpunk Style", 
+      "cyberpunk": "Cyberpunk Style",
       "anime": "Anime Style",
       "removeBackground": "Remove Background",
       "colorizeOldPhoto": "Colorize Old Photo"
     },
     "presetPrompts": {
       "retro": "Please convert the image to retro style",
-      "cyberpunk": "Please convert the image into cyberpunk style", 
+      "cyberpunk": "Please convert the image into cyberpunk style",
       "anime": "Please convert the image into anime style",
       "removeBackground": "Please remove image background",
       "colorizeOldPhoto": "Restore and colorize this image. Remove any scratches or imperfections."
@@ -449,7 +453,7 @@
     "subscriptionFailed": "Subscription Failed",
     "subscriptionError": "Error creating payment session",
     "processing": "Processing...",
-    "invalidResponse": "Server returned invalid response format", 
+    "invalidResponse": "Server returned invalid response format",
     "createSessionFailed": "Failed to create payment session",
     "noPaymentUrl": "No payment page URL received",
     "networkError": "Network connection error, please check your connection",
@@ -587,7 +591,7 @@
     "friendlyLinks": {
       "title": "Friendly Links",
       "itusi": "ITUSI",
-      "voiceCanvas": "VoiceCanvas", 
+      "voiceCanvas": "VoiceCanvas",
       "pdf2md": "PDF2MD"
     },
     "newsletter": {

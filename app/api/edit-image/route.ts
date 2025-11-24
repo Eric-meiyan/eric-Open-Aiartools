@@ -51,7 +51,7 @@ async function fileToDataUrl(file: File): Promise<string> {
 // 支持的图片格式
 const SUPPORTED_IMAGE_TYPES = [
   'image/jpeg',
-  'image/jpg', 
+  'image/jpg',
   'image/png',
   'image/webp',
   'image/avif'
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const locale = (formData.get('locale') as string) || 'en';
-    
+
     // 检查用户认证状态
     const session = await auth();
     if (!session?.user?.email) {
@@ -86,14 +86,14 @@ export async function POST(request: NextRequest) {
     // 检查用户积分是否足够（先检查，但不扣除）
     if (user.credits < 10) {
       return NextResponse.json(
-        { 
-          success: false, 
+        {
+          success: false,
           error: getMessage(locale, 'insufficientCredits')
         },
         { status: 402 } // Payment Required
       );
     }
-    
+
     const file = formData.get('image') as File;
     const prompt = formData.get('prompt') as string;
     const action = (formData.get('action') as string) || 'smart';
@@ -110,8 +110,8 @@ export async function POST(request: NextRequest) {
     // 验证文件类型
     if (!SUPPORTED_IMAGE_TYPES.includes(file.type)) {
       return NextResponse.json(
-        { 
-          success: false, 
+        {
+          success: false,
           error: getMessage(locale, 'unsupportedImageFormat')
         },
         { status: 400 }
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
           locale: locale,
         });
         break;
-      
+
       case 'precise':
         if (!prompt) {
           return NextResponse.json(
@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
           locale: locale,
         });
         break;
-      
+
       case 'creative':
         if (!prompt) {
           return NextResponse.json(
@@ -166,7 +166,7 @@ export async function POST(request: NextRequest) {
           locale: locale,
         });
         break;
-      
+
       case 'edit':
       case 'smart':
       default:
@@ -221,7 +221,7 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Image edit API error:', error);
-    
+
     // 尝试从 formData 中获取 locale，如果失败则默认为 'en'
     let locale = 'en';
     try {
@@ -230,10 +230,10 @@ export async function POST(request: NextRequest) {
     } catch {
       // 如果无法读取 formData，使用默认语言
     }
-    
+
     return NextResponse.json(
-      { 
-        success: false, 
+      {
+        success: false,
         error: error instanceof Error ? error.message : getMessage(locale, 'processingError')
       },
       { status: 500 }
@@ -249,10 +249,10 @@ export async function GET() {
     supported_formats: ['JPG', 'JPEG', 'PNG', 'WebP', 'AVIF'],
     max_file_size: '5MB',
     models: {
-      smart: 'nano-banana-edit',
-      precise: 'nano-banana-edit', 
-      creative: 'nano-banana-edit',
-      remove_background: 'nano-banana-edit'
+      smart: 'nano-banana-pro-edit',
+      precise: 'nano-banana-pro-edit',
+      creative: 'nano-banana-pro-edit',
+      remove_background: 'nano-banana-pro-edit'
     },
     credit_cost: `${CREDIT_CONFIG.COSTS.IMAGE_EDIT} credits per edit`
   });
