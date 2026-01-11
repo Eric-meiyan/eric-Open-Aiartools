@@ -230,20 +230,23 @@ export default async function ContactUs({ params }: BlogPostProps) {
                     </div>
                   </div>
 
-                  {/* WeChat */}
-                  <div className="bg-muted/30 p-6 rounded-lg mb-6">
-                    <h3 className="text-xl font-medium mb-3 flex items-center">
-                      <MessageCircle className="w-5 h-5 mr-2 text-primary" />
-                      {t("wechatTitle")}
-                    </h3>
-                    <p className="text-muted-foreground mb-4">{t("wechatText")}</p>
-                    <div className="bg-background p-4 rounded-md flex items-center justify-between">
-                      <span className="font-medium">{t("wechatId")}</span>
-                      <CopyButton text={t("wechatId")}>
-                        Copy
-                      </CopyButton>
-                    </div>
-                  </div>
+                   {/* WeChat */}
+                   <div className="bg-muted/30 p-6 rounded-lg mb-6">
+                     <h3 className="text-xl font-medium mb-3 flex items-center">
+                       <MessageCircle className="w-5 h-5 mr-2 text-primary" />
+                       {t("wechatTitle")}
+                     </h3>
+                     <p className="text-muted-foreground mb-4">{t("wechatText")}</p>
+                     <div className="bg-background p-4 rounded-md flex items-center justify-center">
+                       <Image
+                         src="/wechat.png"
+                         alt="WeChat QR Code"
+                         width={200}
+                         height={200}
+                         className="rounded-lg"
+                       />
+                     </div>
+                   </div>
 
                 </section>
 
