@@ -1,7 +1,7 @@
 {
   "seo": {
-    "title": "Photo Editor Art - AI-Powered Photo Editor Online",
-    "description": "Edit photos instantly with AI. Online photo editor featuring smart editing, background removal, and artistic filters. No download required.",
+    "title": "Free AI Photo Editor Online — Style Transfer, Object Removal & Filters | Photo Editor Art",
+    "description": "Free AI photo editor with anime filters, cyberpunk effects, Van Gogh style transfer, and object removal. No download, no signup. Transform your photos with AI instantly.",
     "keywords": "photo editor,AI photo editor,online photo editing,free photo editor,background removal,photo filters,image editing,photo retouching",
     "ogTitle": "Photo Editor Art - Leading AI Photo Editing Platform",
     "ogDescription": "Experience the most advanced AI photo editing technology. Transform your photos with simple text descriptions. Professional photo editing made simple.",
@@ -320,7 +320,7 @@
     }
   },
   "hero": {
-    "headline": "Transform Your Photos with AI Magic",
+    "headline": "Free AI Photo Editor Online",
     "subheadline": "Professional photo editing made simple. Upload, describe your vision, and watch AI bring your photos to life. No complex tools, just pure creativity.",
     "tryDemo": "Try a Demo",
     "viewPricing": "View Pricing",
@@ -384,6 +384,7 @@
     "text2imgDescription": "Generate images from text",
     "text2imgPromptPlaceholder": "Describe the image you want to generate, e.g., 'A cute cat in a garden' or 'Beach at sunset'",
     "text2imgCreditCost": "10 credits per generation",
+    "text2imgStartMessage": "Enter a description to start generating",
     "singleImageEdit": "Single Image Edit",
     "multiImageEdit": "Multi Image Edit",
     "uploadMultiImages": "Upload Images",
@@ -532,7 +533,59 @@
     "q6": {
       "question": "What if I'm not satisfied with the results?",
       "answer": "We are constantly working to improve our AI models. If you are not satisfied with the results, please provide feedback so we can improve."
+    },
+    "q7": {
+      "question": "How is this different from Photoshop?",
+      "answer": "Photo Editor Art is designed for speed and simplicity. While Photoshop requires technical skills and manual editing, our AI understands natural language descriptions and applies transformations automatically. No learning curve, no complex tools—just describe what you want and get instant results. Perfect for quick edits, style transfers, and creative experiments without professional software."
+    },
+    "q8": {
+      "question": "Can I remove people or objects from photos?",
+      "answer": "Yes! Our AI-powered object removal feature can seamlessly remove unwanted people, objects, or elements from your photos. Simply describe what you want removed, like 'remove the person on the left' or 'remove the background clutter,' and our AI will intelligently fill in the space to create a natural-looking result."
     }
+  },
+  "whatIs": {
+    "title": "What is Photo Editor Art?",
+    "subtitle": "Your AI-powered photo transformation platform",
+    "intro": "Photo Editor Art is a free online AI photo editing tool that transforms your images using advanced artificial intelligence. Whether you're a professional designer, social media creator, or just someone who loves photography, our platform makes professional-grade photo editing accessible to everyone.",
+    "styleTransfer": {
+      "title": "Style Transfer",
+      "description": "Apply artistic styles instantly—Anime, Cyberpunk, Van Gogh, Oil Painting, Watercolor, and more. Transform any photo into a masterpiece with one simple description."
+    },
+    "objectManipulation": {
+      "title": "Object Manipulation",
+      "description": "Add, remove, or replace objects seamlessly. Want to add a sunset? Remove a passerby? Our AI understands context and creates natural-looking results."
+    },
+    "smartEnhancement": {
+      "title": "Smart Enhancement",
+      "description": "Enhance colors, adjust lighting, improve clarity—all with simple text prompts. No technical knowledge required, just describe what you want."
+    },
+    "browserBased": {
+      "title": "Browser-Based & Instant",
+      "description": "No software download, no installation, no signup required for basic features. Works directly in your browser with instant results."
+    },
+    "conclusion": "With over 1 million images processed and counting, Photo Editor Art has become the go-to AI photo editor for creators worldwide. Experience the future of photo editing—fast, intelligent, and incredibly easy to use."
+  },
+  "useCases": {
+    "title": "Who Uses Photo Editor Art?",
+    "subtitle": "Trusted by creators across industries",
+    "intro": "From casual users to professional designers, Photo Editor Art serves a diverse community of creators who need quick, high-quality AI-powered photo transformations.",
+    "socialMedia": {
+      "title": "Social Media Creators",
+      "description": "Content creators, influencers, and marketers use our AI filters and style transfers to create eye-catching posts that stand out. Apply trending anime filters, cyberpunk effects, or vintage styles in seconds—no design skills needed."
+    },
+    "designers": {
+      "title": "Designers & Artists",
+      "description": "Graphic designers and digital artists accelerate their workflow with AI-powered style exploration and rapid prototyping. Test multiple artistic directions instantly before committing to final designs."
+    },
+    "ecommerce": {
+      "title": "E-commerce & Product Photography",
+      "description": "Online sellers enhance product photos, remove backgrounds, and create lifestyle imagery. Transform plain product shots into professional marketing visuals that drive sales."
+    },
+    "personal": {
+      "title": "Personal Photos & Memories",
+      "description": "Everyday users restore old family photos, enhance vacation pictures, and create unique artistic versions of their favorite moments. Turn cherished memories into gallery-worthy art."
+    },
+    "conclusion": "No matter your use case, Photo Editor Art delivers professional results in seconds. Join thousands of creators who have made AI photo editing part of their creative workflow."
   },
   "blog": {
     "title": "Latest from Our Blog",

@@ -1058,7 +1058,7 @@ export default function InteractiveDemo({ locale }: InteractiveDemoProps) {
                           <ImageIcon className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                           <p className="text-muted-foreground">{t("resultWillAppearHere")}</p>
                           <p className="text-sm text-muted-foreground mt-2">
-                            {editMode === 'text2img' ? '输入描述开始生成' : t("uploadAndDescribe")}
+                            {editMode === 'text2img' ? t("text2imgStartMessage") : t("uploadAndDescribe")}
                           </p>
                         </div>
                       )}

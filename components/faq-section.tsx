@@ -31,6 +31,18 @@ export default function FAQSection({ locale }: FAQSectionProps) {
       question: t("q5.question"),
       answer: t("q5.answer"),
     },
+    {
+      question: t("q6.question"),
+      answer: t("q6.answer"),
+    },
+    {
+      question: t("q7.question"),
+      answer: t("q7.answer"),
+    },
+    {
+      question: t("q8.question"),
+      answer: t("q8.answer"),
+    },
   ]
 
   return (
