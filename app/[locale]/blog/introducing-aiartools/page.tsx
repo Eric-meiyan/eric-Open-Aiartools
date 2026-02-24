@@ -29,13 +29,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title,
       description,
-      url: `https://photo-editor.art/${locale}/blog/introducing-aiartools`,
+      url: `https://www.photo-editor.art/${locale}/blog/introducing-aiartools`,
       siteName: "Photo Editor Art",
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
       type: 'article',
       images: [
         {
-          url: 'https://photo-editor.art/images/Transform Your Photos with the Power of AI.png',
+          url: 'https://www.photo-editor.art/images/Transform Your Photos with the Power of AI.png',
           width: 1000,
           height: 500,
           alt: 'Photo Editor Art Introduction',
@@ -46,13 +46,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       card: 'summary_large_image',
       title,
       description,
-      images: ['https://photo-editor.art/images/Transform Your Photos with the Power of AI.png'],
+      images: ['https://www.photo-editor.art/images/Transform Your Photos with the Power of AI.png'],
     },
     alternates: {
-      canonical: `https://photo-editor.art/${locale}/blog/introducing-aiartools`,
+      canonical: `https://www.photo-editor.art/${locale}/blog/introducing-aiartools`,
       languages: {
-        'en': 'https://photo-editor.art/en/blog/introducing-aiartools',
-        'zh': 'https://photo-editor.art/zh/blog/introducing-aiartools',
+        'en': 'https://www.photo-editor.art/en/blog/introducing-aiartools',
+        'zh': 'https://www.photo-editor.art/zh/blog/introducing-aiartools',
       },
     },
   }

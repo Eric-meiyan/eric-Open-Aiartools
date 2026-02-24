@@ -3,19 +3,9 @@ import { NextResponse } from 'next/server'
 export async function GET() {
   const robots = `User-agent: *
 Allow: /
-
-# 禁止爬取API路由
 Disallow: /api/
 
-# 禁止爬取私有文件
-Disallow: /_next/
-Disallow: /admin/
-
-# Sitemap位置
-Sitemap: https://photo-editor.art/sitemap.xml
-
-# 抓取延迟（可选）
-Crawl-delay: 1`
+Sitemap: https://www.photo-editor.art/sitemap.xml`
 
   return new NextResponse(robots, {
     headers: {

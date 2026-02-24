@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title,
       description,
-      url: `https://photo-editor.art/${locale}/cookies`,
+      url: `https://www.photo-editor.art/${locale}/cookies`,
       siteName: "Photo Editor Art",
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
       type: 'website',
@@ -39,10 +39,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description,
     },
     alternates: {
-      canonical: `https://photo-editor.art/${locale}/cookies`,
+      canonical: `https://www.photo-editor.art/${locale}/cookies`,
       languages: {
-        'en': 'https://photo-editor.art/en/cookies',
-        'zh': 'https://photo-editor.art/zh/cookies',
+        'en': 'https://www.photo-editor.art/en/cookies',
+        'zh': 'https://www.photo-editor.art/zh/cookies',
       },
     },
   }

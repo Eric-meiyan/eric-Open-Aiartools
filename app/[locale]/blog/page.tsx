@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title,
       description,
-      url: `https://photo-editor.art/${locale}/blog`,
+      url: `https://www.photo-editor.art/${locale}/blog`,
       siteName: "Photo Editor Art",
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
       type: 'website',
@@ -43,10 +43,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description,
     },
     alternates: {
-      canonical: `https://photo-editor.art/${locale}/blog`,
+      canonical: `https://www.photo-editor.art/${locale}/blog`,
       languages: {
-        'en': 'https://photo-editor.art/en/blog',
-        'zh': 'https://photo-editor.art/zh/blog',
+        'en': 'https://www.photo-editor.art/en/blog',
+        'zh': 'https://www.photo-editor.art/zh/blog',
       },
     },
   }

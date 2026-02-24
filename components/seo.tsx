@@ -16,7 +16,7 @@ export default function SEO({
   description: customDescription,
   keywords: customKeywords,
   image = '/images/og-image.png',
-  url = 'https://photo-editor.art',
+  url = 'https://www.photo-editor.art',
   type = 'website',
   locale = 'en'
 }: SEOProps) {
@@ -55,9 +55,9 @@ export default function SEO({
       
       {/* 语言相关 */}
       <meta httpEquiv="content-language" content={locale} />
-      <link rel="alternate" hrefLang="en" href="https://photo-editor.art" />
-      <link rel="alternate" hrefLang="zh" href="https://photo-editor.art/zh" />
-      <link rel="alternate" hrefLang="x-default" href="https://photo-editor.art" />
+      <link rel="alternate" hrefLang="en" href="https://www.photo-editor.art" />
+      <link rel="alternate" hrefLang="zh" href="https://www.photo-editor.art/zh" />
+      <link rel="alternate" hrefLang="x-default" href="https://www.photo-editor.art" />
       
       {/* 额外的 meta 标签 */}
       <meta name="theme-color" content="#6366f1" />

@@ -30,13 +30,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title,
       description,
-      url: `https://photo-editor.art/${locale}/blog/contact-us`,
+      url: `https://www.photo-editor.art/${locale}/blog/contact-us`,
       siteName: "Photo Editor Art",
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
       type: 'article',
       images: [
         {
-          url: 'https://photo-editor.art/images/Get in Touch with Photo Editor Art Team.png',
+          url: 'https://www.photo-editor.art/images/Get in Touch with Photo Editor Art Team.png',
           width: 1000,
           height: 400,
           alt: 'Contact Photo Editor Art Team',
@@ -47,13 +47,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       card: 'summary_large_image',
       title,
       description,
-      images: ['https://photo-editor.art/images/Get in Touch with Photo Editor Art Team.png'],
+      images: ['https://www.photo-editor.art/images/Get in Touch with Photo Editor Art Team.png'],
     },
     alternates: {
-      canonical: `https://photo-editor.art/${locale}/blog/contact-us`,
+      canonical: `https://www.photo-editor.art/${locale}/blog/contact-us`,
       languages: {
-        'en': 'https://photo-editor.art/en/blog/contact-us',
-        'zh': 'https://photo-editor.art/zh/blog/contact-us',
+        'en': 'https://www.photo-editor.art/en/blog/contact-us',
+        'zh': 'https://www.photo-editor.art/zh/blog/contact-us',
       },
     },
   }

@@ -54,7 +54,7 @@ export async function generateMetadata({
       type: 'website',
       locale: locale,
       alternateLocale: locale === 'en' ? 'zh' : 'en',
-      url: 'https://photo-editor.art',
+      url: 'https://www.photo-editor.art',
       title: t('ogTitle'),
       description: t('ogDescription'),
       siteName: 'Photo Editor Art',
@@ -91,11 +91,11 @@ export async function generateMetadata({
     },
     manifest: '/site.webmanifest',
     alternates: {
-      canonical: `https://photo-editor.art/${locale}`,
+      canonical: `https://www.photo-editor.art/${locale}`,
       languages: {
-        'en': 'https://photo-editor.art/en',
-        'zh': 'https://photo-editor.art/zh',
-        'x-default': 'https://photo-editor.art/en',
+        'en': 'https://www.photo-editor.art/en',
+        'zh': 'https://www.photo-editor.art/zh',
+        'x-default': 'https://www.photo-editor.art/en',
       },
     },
   }
@@ -139,7 +139,7 @@ export default async function LocaleLayout({
               "description": locale === 'zh' 
                 ? "用AI的力量改变你的图像。简单、快速、功能强大。"
                 : "Transform your photos with the power of AI. Simple, fast, and incredibly powerful.",
-              "url": "https://photo-editor.art",
+              "url": "https://www.photo-editor.art",
               "applicationCategory": "DesignApplication",
               "operatingSystem": "Web",
               "offers": {
