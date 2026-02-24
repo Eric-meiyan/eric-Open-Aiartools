@@ -430,9 +430,8 @@
     },
     "friendlyLinks": {
       "title": "友情链接",
-      "itusi": "ITUSI",
-      "voiceCanvas": "VoiceCanvas",
-      "pdf2md": "PDF2MD"
+      "ytf": "YouTubeTranscriptFree",
+      "deepinfo": "DeepInfo"
     },
     "newsletter": {
       "title": "保持更新",

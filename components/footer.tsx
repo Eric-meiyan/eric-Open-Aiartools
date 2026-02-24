@@ -102,32 +102,22 @@ export default function Footer({ locale }: FooterProps) {
             <ul className="space-y-2 text-muted-foreground">
               <li>
                 <a 
-                  href="https://www.itusi.cn/" 
+                  href="https://youtubetranscriptfree.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="hover:text-foreground transition-colors"
                 >
-                  {t("friendlyLinks.itusi")}
+                  {t("friendlyLinks.ytf")}
                 </a>
               </li>
               <li>
                 <a 
-                  href="https://voicecanvas.org/" 
+                  href="https://deepinfo.io" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="hover:text-foreground transition-colors"
                 >
-                  {t("friendlyLinks.voiceCanvas")}
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://pdf2md.site/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="hover:text-foreground transition-colors"
-                >
-                  {t("friendlyLinks.pdf2md")}
+                  {t("friendlyLinks.deepinfo")}
                 </a>
               </li>
             </ul>

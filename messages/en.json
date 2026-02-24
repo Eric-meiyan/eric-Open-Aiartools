@@ -643,9 +643,8 @@
     },
     "friendlyLinks": {
       "title": "Friendly Links",
-      "itusi": "ITUSI",
-      "voiceCanvas": "VoiceCanvas",
-      "pdf2md": "PDF2MD"
+      "ytf": "YouTubeTranscriptFree",
+      "deepinfo": "DeepInfo"
     },
     "newsletter": {
       "title": "Stay Updated",
