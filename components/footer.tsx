@@ -1,10 +1,10 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { GithubIcon, GlobeIcon, MessageCircle } from "lucide-react"
 import Link from "next/link"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
+
+import { GithubIcon, GlobeIcon, MessageCircle } from "lucide-react"
 
 interface FooterProps {
   locale: string
@@ -33,18 +33,6 @@ export default function Footer({ locale }: FooterProps) {
               </h3>
             </div>
             <p className="text-muted-foreground">{t("description")}</p>
-            <div className="flex space-x-4">
-              <a href="https://github.com/ItusiAI" target="_blank" rel="noopener noreferrer">
-                <Button variant="ghost" size="icon">
-                  <GithubIcon className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link href={`/${locale}`}>
-                <Button variant="ghost" size="icon">
-                  <GlobeIcon className="w-5 h-5" />
-                </Button>
-              </Link>
-            </div>
           </div>
 
           {/* Product */}
@@ -124,27 +112,19 @@ export default function Footer({ locale }: FooterProps) {
           </div>
         </div>
 
+        {/* 底部版权 */}
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
             © {currentYear} Photo Editor Art. {t("copyright")}
           </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link
-              href={`/${locale}/privacy`}
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            >
+          <div className="flex flex-wrap gap-x-4 md:gap-6">
+            <Link href={`/${locale}/privacy`} className="text-muted-foreground hover:text-foreground text-sm transition-colors">
               {t("privacy")}
             </Link>
-            <Link
-              href={`/${locale}/terms`}
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            >
+            <Link href={`/${locale}/terms`} className="text-muted-foreground hover:text-foreground text-sm transition-colors">
               {t("terms")}
             </Link>
-            <Link
-              href={`/${locale}/cookies`}
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            >
+            <Link href={`/${locale}/cookies`} className="text-muted-foreground hover:text-foreground text-sm transition-colors">
               {t("cookies")}
             </Link>
           </div>
